@@ -1,0 +1,3 @@
+# Protect storage directory from direct access
+Order deny,allow
+Deny from all
