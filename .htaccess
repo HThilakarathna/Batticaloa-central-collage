@@ -31,6 +31,11 @@
     RewriteEngine On
     RewriteBase /
     
+    # Remove .php extension
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^([a-zA-Z0-9-]+)$ $1.php [L]
+    
     # Force HTTPS (uncomment if you have SSL)
     # RewriteCond %{HTTPS} off
     # RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
