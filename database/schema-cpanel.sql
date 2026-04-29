@@ -118,4 +118,4 @@ CREATE TABLE IF NOT EXISTS applications (
 -- ============================================================
 
 INSERT INTO admins (name, email, password_hash, created_at, updated_at) VALUES
-('Administrator', 'admin@oddamavadi.lk', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', NOW(), NOW());
+('Administrator', 'admin@oddamavadi.lk', '$2y$10$tHfTJjgylLiEfGUEI1QV4eMpcrcxRr7dJ4xDnPzJVoRgjfLdeUT96', NOW(), NOW());

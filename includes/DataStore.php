@@ -533,7 +533,7 @@ final class DataStore
             $statement->execute([
                 'name' => 'Site Administrator',
                 'email' => 'admin@oddamavadi.lk',
-                'password_hash' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
+                'password_hash' => '$2y$10$tHfTJjgylLiEfGUEI1QV4eMpcrcxRr7dJ4xDnPzJVoRgjfLdeUT96',
             ]);
         }
 
