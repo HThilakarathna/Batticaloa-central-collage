@@ -128,9 +128,7 @@ const ADMIN_TEMPLATE = `
                 </button>
             </form>
 
-            <div class="developer-note mt-4">
-                Default login: <strong>admin@oddamavadi.lk</strong> / <strong>admin123</strong>
-            </div>
+
         </div>
     </div>
 
@@ -309,8 +307,8 @@ createAdminApp({
             admin: null,
             loggingIn: false,
             loginForm: {
-                email: 'admin@oddamavadi.lk',
-                password: 'admin123'
+                email: '',
+                password: ''
             },
             loginStatus: {
                 ok: false,
