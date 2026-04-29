@@ -1,7 +1,7 @@
 -- ============================================================
 -- BT/BC Oddamavadi Central College — Database Setup
 -- For cPanel: Import this file into phpMyAdmin
--- NOTE: Database is created via cPanel MySQL Databases
+-- Database: lankafle_bt_central_college
 -- ============================================================
 
 -- ============================================================
