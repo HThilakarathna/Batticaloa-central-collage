@@ -418,6 +418,19 @@ createAdminApp({
             this.loggingIn = true;
             this.loginStatus = { ok: false, message: '' };
 
+            // Client-side validation
+            const email = this.loginForm.email.trim();
+            const password = this.loginForm.password.trim();
+
+            if (!email || !password) {
+                this.loginStatus = {
+                    ok: false,
+                    message: 'Email and password are required.'
+                };
+                this.loggingIn = false;
+                return;
+            }
+
             try {
                 const payload = await this.apiRequest(`${this.apiUrl}?action=login`, {
                     method: 'POST',
