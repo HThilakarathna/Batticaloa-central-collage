@@ -29,6 +29,13 @@
 ehthumbs.db
 Thumbs.db
 
+# Security sensitive files
+gen-hash.php
+reset-password.php
+
+# Environment files
+.env.cpanel
+
 # cPanel specific
 php.ini.cpanel
 .sftp-config.json
