@@ -135,8 +135,27 @@ const ADMIN_TEMPLATE = `
     </div>
 
     <div class="admin-shell" v-else>
-        <aside class="admin-sidebar">
+        <header class="admin-mobile-head d-lg-none">
             <a class="brand-lockup" href="index.php">
+                <img src="assets/images/logo.png" alt="School logo">
+                <div class="brand-title text-white">BT/BC Central</div>
+            </a>
+            <button class="nav-hamburger" @click="sidebarOpen = !sidebarOpen" :aria-expanded="sidebarOpen">
+                <span :class="{ 'open': sidebarOpen }"></span>
+                <span :class="{ 'open': sidebarOpen }"></span>
+                <span :class="{ 'open': sidebarOpen }"></span>
+            </button>
+        </header>
+
+        <aside class="admin-sidebar" :class="{ 'admin-sidebar--open': sidebarOpen }">
+            <div class="d-flex justify-content-between align-items-center mb-4 d-lg-none">
+                <span class="muted-kicker">Navigation</span>
+                <button class="btn-icon" @click="sidebarOpen = false">
+                    <i class="bi bi-x-lg text-white"></i>
+                </button>
+            </div>
+
+            <a class="brand-lockup d-none d-lg-flex" href="index.php">
                 <img src="assets/images/logo.png" alt="School logo">
                 <div>
                     <div class="brand-title text-white">BT/BC Central College</div>
@@ -338,7 +357,8 @@ createAdminApp({
                 { key: 'contact_messages', label: 'Inbox', icon: 'bi-envelope' },
                 { key: 'applications', label: 'Applications', icon: 'bi-file-earmark-text' }
             ],
-            confirmingLogout: false
+            confirmingLogout: false,
+            sidebarOpen: false
         };
     },
     computed: {
@@ -459,6 +479,7 @@ createAdminApp({
         },
         activateSection(section) {
             this.section = section;
+            this.sidebarOpen = false;
             this.flash = { ok: false, message: '' };
             this.loadCurrentSection();
         },

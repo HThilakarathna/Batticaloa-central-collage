@@ -22,14 +22,18 @@ export const SiteHeader = {
         window.removeEventListener('scroll', this.handleScroll);
     },
     template: `
-        <header class="topbar" :class="{ 'topbar--scrolled': scrolled }">
+        <header class="topbar" :class="{ 'topbar--scrolled': scrolled || menuOpen }">
+            <Transition name="fade">
+                <div class="nav-overlay" v-if="menuOpen" @click="closeMenu"></div>
+            </Transition>
+            
             <div class="topbar__inner container">
                 <a class="brand-lockup" :href="pageLink('home')" @click="closeMenu">
                     <div class="brand-logo-wrap">
                         <img src="assets/images/logo.png" alt="School logo">
                     </div>
-                    <div>
-                        <div class="brand-title">{{ site.name || 'BT/BC Oddamavadi Central College' }}</div>
+                    <div class="brand-info">
+                        <div class="brand-title">{{ site.name || 'BT/BC Central College' }}</div>
                         <span class="brand-subtitle">
                             <i class="bi bi-patch-check-fill me-1"></i>
                             {{ site.tagline || 'National School' }}
@@ -44,19 +48,37 @@ export const SiteHeader = {
                 </button>
 
                 <nav class="nav-cluster" :class="{ 'nav-cluster--open': menuOpen }">
-                    <a
-                        v-for="item in navigation"
-                        :key="item.key"
-                        class="nav-chip"
-                        :class="{ 'is-active': item.key === page }"
-                        :href="pageLink(item.key)"
-                        @click="closeMenu"
-                    >
-                        {{ item.label }}
-                    </a>
-                    <a class="nav-chip nav-chip--accent" href="admin.php" @click="closeMenu">
-                        <i class="bi bi-shield-lock me-1"></i>Admin
-                    </a>
+                    <div class="drawer-header d-lg-none">
+                        <div class="brand-lockup">
+                            <div class="brand-logo-wrap" style="width: 40px; height: 40px;">
+                                <img src="assets/images/logo.png" alt="School logo">
+                            </div>
+                            <div class="brand-title text-white" style="font-size: 0.9rem;">BT/BC Central</div>
+                        </div>
+                        <button class="btn-icon" @click="closeMenu">
+                            <i class="bi bi-x-lg text-white"></i>
+                        </button>
+                    </div>
+
+                    <div class="drawer-body">
+                        <a
+                            v-for="item in navigation"
+                            :key="item.key"
+                            class="nav-chip"
+                            :class="{ 'is-active': item.key === page }"
+                            :href="pageLink(item.key)"
+                            @click="closeMenu"
+                        >
+                            {{ item.label }}
+                            <i class="bi bi-chevron-right ms-auto d-lg-none opacity-50" style="font-size: 0.8rem;"></i>
+                        </a>
+                    </div>
+
+                    <div class="drawer-footer d-lg-none">
+                        <a class="sidebar-button w-100 text-center" href="admin.php" style="background: rgba(255,255,255,0.1); border-radius: 12px; padding: 1rem;">
+                            <i class="bi bi-shield-lock me-2"></i>Admin Panel
+                        </a>
+                    </div>
                 </nav>
             </div>
         </header>
