@@ -128,9 +128,7 @@ const ADMIN_TEMPLATE = `
                 </button>
             </form>
 
-            <div class="developer-note mt-4">
-                Default login: <strong>admin@oddamavadi.lk</strong> / <strong>admin123</strong>
-            </div>
+
         </div>
     </div>
 
@@ -328,8 +326,8 @@ createAdminApp({
             admin: null,
             loggingIn: false,
             loginForm: {
-                email: 'admin@oddamavadi.lk',
-                password: 'admin123'
+                email: '',
+                password: ''
             },
             loginStatus: {
                 ok: false,
@@ -439,6 +437,19 @@ createAdminApp({
         async login() {
             this.loggingIn = true;
             this.loginStatus = { ok: false, message: '' };
+
+            // Client-side validation
+            const email = this.loginForm.email.trim();
+            const password = this.loginForm.password.trim();
+
+            if (!email || !password) {
+                this.loginStatus = {
+                    ok: false,
+                    message: 'Email and password are required.'
+                };
+                this.loggingIn = false;
+                return;
+            }
 
             try {
                 const payload = await this.apiRequest(`${this.apiUrl}?action=login`, {

@@ -30,13 +30,17 @@ try {
             }
 
             $payload = request_json_body();
-            $admin = $store->authenticate(
-                trim((string) ($payload['email'] ?? '')),
-                (string) ($payload['password'] ?? '')
-            );
+            $email = trim((string) ($payload['email'] ?? ''));
+            $password = (string) ($payload['password'] ?? '');
+
+            if (!$email || !$password) {
+                json_response(['ok' => false, 'message' => 'Email and password are required.'], 422);
+            }
+
+            $admin = $store->authenticate($email, $password);
 
             if (!$admin) {
-                json_response(['ok' => false, 'message' => 'Invalid email or password.'], 422);
+                json_response(['ok' => false, 'message' => 'Invalid email or password.'], 401);
             }
 
             json_response(['ok' => true, 'data' => $admin]);
