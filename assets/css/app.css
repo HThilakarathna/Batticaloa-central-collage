@@ -332,6 +332,16 @@ a {
         min-height: 70px;
     }
 
+    .drawer-header .btn-icon {
+        background: var(--white);
+        color: var(--sky-500);
+    }
+
+    .drawer-header .btn-icon:hover {
+        background: var(--sky-50);
+        color: var(--sky-600);
+    }
+
     .drawer-body {
         padding: 1.5rem;
         padding-left: calc(1.5rem + env(safe-area-inset-left, 0));

@@ -149,7 +149,7 @@ const ADMIN_TEMPLATE = `
             <div class="d-flex justify-content-between align-items-center mb-4 d-lg-none">
                 <span class="muted-kicker">Navigation</span>
                 <button class="btn-icon" @click="sidebarOpen = false">
-                    <i class="bi bi-x-lg text-white"></i>
+                    <i class="bi bi-x-lg" style="color: var(--sky-500);"></i>
                 </button>
             </div>
 

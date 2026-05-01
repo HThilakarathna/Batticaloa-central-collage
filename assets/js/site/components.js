@@ -56,7 +56,7 @@ export const SiteHeader = {
                             <div class="brand-title text-white" style="font-size: 0.9rem;">BT/BC Central</div>
                         </div>
                         <button class="btn-icon" @click="closeMenu">
-                            <i class="bi bi-x-lg text-white"></i>
+                            <i class="bi bi-x-lg" style="color: var(--sky-500);"></i>
                         </button>
                     </div>
 

@@ -340,7 +340,7 @@ img {
         width: 100%;
     }
 
-    .btn-icon {
+    .table-actions .btn-icon {
         flex: 1;
     }
 }
