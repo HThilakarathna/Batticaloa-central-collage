@@ -1,20 +1,13 @@
 /* ─── Enhanced Responsive Design Improvements ─────────────────── */
 /* This file contains modern responsive design enhancements */
 
-/* Hero Section Mobile Fix */
-.page-hero {
-    width: 100%;
-    max-width: 100%;
-    overflow-x: hidden !important;
-}
-
-.hero-container {
-    width: 100%;
-    max-width: 100%;
-    box-sizing: border-box;
-}
-
+/* Hero Section Mobile Fix - Mobile only */
 @media (max-width: 991px) {
+    .page-hero {
+        flex-direction: column;
+        min-height: auto;
+    }
+
     .page-hero__content,
     .hero-image-panel,
     .hero-actions,
@@ -24,17 +17,11 @@
         box-sizing: border-box;
     }
 
-    .page-hero {
-        display: flex;
-        flex-direction: column;
-        align-items: stretch;
-        justify-content: center;
-    }
-
     .hero-container {
         display: flex;
         flex-direction: column;
         align-items: center;
+        width: 100%;
     }
 }
 

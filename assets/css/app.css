@@ -468,12 +468,11 @@ a {
     position: relative;
     min-height: 92vh;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
     overflow-x: hidden;
-    overflow-y: auto;
     color: var(--white);
+    width: 100%;
 }
 
 .page-hero--home {
@@ -577,64 +576,20 @@ a {
 }
 
 @media (max-width: 991px) {
+    .page-hero {
+        flex-direction: column;
+        min-height: auto;
+        padding-top: 4.5rem;
+    }
+
     .hero-container {
         grid-template-columns: 1fr;
         text-align: center;
         gap: 2rem;
         padding-top: 5.5rem;
         padding-bottom: 2.5rem;
-        padding-left: 0;
-        padding-right: 0;
+        flex-direction: column;
         width: 100%;
-    }
-
-    .hero-actions {
-        justify-content: center;
-        flex-wrap: wrap;
-    }
-
-    .hero-metrics {
-        justify-content: center;
-        margin-top: 2rem;
-        max-width: 100%;
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .hero-image-panel {
-        display: flex;
-        justify-content: center;
-        order: -1;
-        margin-bottom: 1rem;
-        padding: 0 1rem;
-        width: 100%;
-    }
-
-    .hero-school-img {
-        max-width: 100%;
-        height: auto;
-        width: 100%;
-    }
-
-    .hero-img-badge,
-    .hero-img-stat {
-        transform: scale(0.85);
-    }
-
-    .hero-title {
-        margin-inline: auto;
-        font-size: clamp(1.5rem, 6vw, 2.5rem);
-        padding: 0 1rem;
-    }
-
-    .hero-copy {
-        margin-inline: auto;
-        font-size: clamp(0.95rem, 2vw, 1rem);
-        padding: 0 1rem;
-    }
-
-    .page-hero {
-        min-height: auto;
-        padding-top: 4.5rem;
     }
 
     .page-hero__content {
@@ -649,13 +604,45 @@ a {
         width: 100%;
     }
 
+    .hero-title {
+        margin-inline: auto;
+        font-size: clamp(1.5rem, 6vw, 2.5rem);
+    }
+
+    .hero-copy {
+        margin-inline: auto;
+        font-size: clamp(0.95rem, 2vw, 1rem);
+    }
+
     .hero-actions {
+        justify-content: center;
+        flex-wrap: wrap;
         width: 100%;
-        padding: 0 1rem;
     }
 
     .hero-metrics {
-        padding: 0 1rem;
+        justify-content: center;
+        margin-top: 2rem;
+        max-width: 100%;
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .hero-image-panel {
+        display: flex;
+        justify-content: center;
+        order: -1;
+        margin-bottom: 1rem;
+        width: 100%;
+    }
+
+    .hero-school-img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .hero-img-badge,
+    .hero-img-stat {
+        transform: scale(0.85);
     }
 }
 
@@ -2829,6 +2816,55 @@ label {
     .welcome-banner {
         gap: 1rem;
         padding: 1rem;
+    }
+}
+
+.welcome-banner__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1.5rem;
+}
+
+.welcome-banner__content h2 {
+    font-size: 2.2rem;
+    font-weight: 900;
+    color: var(--navy-900);
+    line-height: 1.2;
+}
+
+.welcome-banner__content p {
+    font-size: 1rem;
+    color: var(--slate-600);
+    line-height: 1.6;
+    margin: 0;
+}
+
+@media (max-width: 991px) {
+    .welcome-banner__content {
+        text-align: center;
+    }
+
+    .welcome-banner__content h2 {
+        font-size: 1.8rem;
+    }
+
+    .welcome-banner__content p {
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 575px) {
+    .welcome-banner__content {
+        gap: 1rem;
+    }
+
+    .welcome-banner__content h2 {
+        font-size: 1.4rem;
+    }
+
+    .welcome-banner__content p {
+        font-size: 0.9rem;
     }
 }
 
