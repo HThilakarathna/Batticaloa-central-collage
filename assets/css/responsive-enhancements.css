@@ -1050,6 +1050,19 @@ li {
         padding: 0 0.75rem;
     }
 
+    .apply-layout .row {
+        gap: 0.75rem;
+    }
+
+    .apply-layout .row.g-3 {
+        gap: 0.75rem;
+    }
+
+    .apply-layout .col-md-4,
+    .apply-layout .col-md-6 {
+        grid-column: span 12;
+    }
+
     .apply-layout .section-card {
         padding: 1.25rem;
         border-radius: 10px;
@@ -1072,7 +1085,7 @@ li {
     }
 
     .apply-layout .stepper__item {
-        min-width: 130px;
+        min-width: 150px;
         flex-shrink: 0;
     }
 
@@ -1157,6 +1170,20 @@ li {
         padding: 0 0.5rem;
     }
 
+    .apply-layout .row {
+        gap: 0.5rem;
+    }
+
+    .apply-layout .row.g-3 {
+        gap: 0.5rem;
+    }
+
+    .apply-layout .col-md-4,
+    .apply-layout .col-md-6,
+    .apply-layout .col-sm-6 {
+        grid-column: span 12;
+    }
+
     .apply-layout .section-card {
         padding: 1rem;
         border-radius: 8px;
@@ -1189,7 +1216,7 @@ li {
     }
 
     .apply-layout .stepper__item {
-        min-width: 110px;
+        min-width: 130px;
         flex-shrink: 0;
     }
 

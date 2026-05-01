@@ -1,4 +1,4 @@
-import { arrayValue, formatDate, previewText } from './helpers.js';
+import { arrayValue, formatDate, previewText, pageLink } from './helpers.js';
 
 export const HomePage = {
     props: {
@@ -8,7 +8,8 @@ export const HomePage = {
     emits: ['open-achievement'],
     methods: {
         arrayValue,
-        formatDate
+        formatDate,
+        pageLink
     },
     setup() { return { previewText }; },
     template: `
@@ -51,7 +52,7 @@ export const HomePage = {
                             <h2>Latest Notices</h2>
                             <p>Important announcements, events, and academic reminders from the school office.</p>
                         </div>
-                        <a class="btn-outline-brand" href="notices.php">
+                        <a class="btn-outline-brand" :href="pageLink('notices')">
                             View All <i class="bi bi-arrow-right ms-1"></i>
                         </a>
                     </div>
