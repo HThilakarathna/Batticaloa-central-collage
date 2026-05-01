@@ -1,20 +1,5 @@
 export const applicationSteps = [
     {
-        title: 'Student Information',
-        description: 'Basic profile and admission details',
-        fields: [
-            { key: 'student_name', label: 'Full Name', type: 'text', required: true, width: 'col-md-6' },
-            { key: 'name_with_initials', label: 'Name With Initials', type: 'text', required: true, width: 'col-md-6' },
-            { key: 'gender', label: 'Gender', type: 'select', required: true, width: 'col-md-4', options: ['Male', 'Female'] },
-            { key: 'date_of_birth', label: 'Date of Birth', type: 'date', required: true, width: 'col-md-4' },
-            { key: 'grade_applying', label: 'Grade Applying For', type: 'text', required: true, width: 'col-md-4' },
-            { key: 'medium', label: 'Medium', type: 'select', required: true, width: 'col-md-4', options: ['Tamil', 'English', 'Sinhala'] },
-            { key: 'birth_certificate_no', label: 'Birth Certificate Number', type: 'text', required: true, width: 'col-md-4' },
-            { key: 'distance_from_school', label: 'Distance From School (km)', type: 'number', required: true, width: 'col-md-4' },
-            { key: 'student_address', label: 'Address', type: 'textarea', required: true, width: 'col-12' }
-        ]
-    },
-    {
         title: 'Parent & Guardian',
         description: 'Primary family contact information',
         fields: [

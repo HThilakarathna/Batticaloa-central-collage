@@ -711,86 +711,64 @@ export const ApplyPage = {
                 </div>
 
                 <div class="form-shell">
-                    <div class="status-note mb-3" :class="status.ok ? 'status-note--success' : 'status-note--error'" v-if="status.message">
-                        {{ status.message }}
+                    <div class="section-head d-block mb-4">
+                        <h3>Student Information</h3>
+                        <p>Basic profile and admission details</p>
                     </div>
 
-                    <template v-if="currentStep.fields.length > 0">
-                        <div class="section-head d-block mb-4">
-                            <span class="muted-kicker">Step {{ currentStepIndex + 1 }} of {{ steps.length }}</span>
-                            <h2>{{ currentStep.title }}</h2>
-                            <p>{{ currentStep.description }}</p>
+                    <div class="row g-3">
+                        <div class="col-12">
+                            <label>Full Name <span>*</span></label>
+                            <input type="text" class="form-control" placeholder="Enter full name" v-model="form.student_name">
                         </div>
-
-                        <div class="row g-3">
-                            <div v-for="field in currentStep.fields" :key="field.key" :class="field.width || 'col-md-6'">
-                                <label>{{ field.label }}<span v-if="field.required"> *</span></label>
-
-                                <input
-                                    v-if="isSimpleInput(field.type)"
-                                    :value="form[field.key]"
-                                    @input="updateField(field.key, $event.target.value)"
-                                    class="form-control"
-                                    :type="field.type"
-                                >
-
-                                <select
-                                    v-else-if="field.type === 'select'"
-                                    :value="form[field.key]"
-                                    @change="updateField(field.key, $event.target.value)"
-                                    class="form-select"
-                                >
-                                    <option value="">Select an option</option>
-                                    <option v-for="option in field.options" :key="field.key + option" :value="option">{{ option }}</option>
-                                </select>
-
-                                <textarea
-                                    v-else-if="field.type === 'textarea'"
-                                    :value="form[field.key]"
-                                    @input="updateField(field.key, $event.target.value)"
-                                    class="form-control"
-                                    rows="4"
-                                ></textarea>
-
-                                <input
-                                    v-else-if="field.type === 'file'"
-                                    class="form-control"
-                                    type="file"
-                                    @change="$emit('update-file', { key: field.key, event: $event })"
-                                >
-
-                                <div class="tiny-copy mt-2" v-if="field.type === 'file' && files[field.key]">
-                                    Selected: {{ files[field.key].name }}
-                                </div>
-                            </div>
+                        <div class="col-12">
+                            <label>Name With Initials <span>*</span></label>
+                            <input type="text" class="form-control" placeholder="Enter name with initials" v-model="form.name_with_initials">
                         </div>
-                    </template>
-
-                    <template v-else>
-                        <div class="section-head d-block mb-4">
-                            <span class="muted-kicker">Final Step</span>
-                            <h2>Review Your Application</h2>
-                            <p>Please confirm the key details before submitting the form.</p>
+                        <div class="col-md-6">
+                            <label>Gender <span>*</span></label>
+                            <select class="form-select" v-model="form.gender">
+                                <option value="">Select an option</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                            </select>
                         </div>
-
-                        <div class="soft-grid soft-grid--two">
-                            <div class="feature-card" v-for="summaryItem in summary" :key="summaryItem.label">
-                                <div class="staff-meta mb-2">{{ summaryItem.label }}</div>
-                                <h3>{{ summaryItem.value }}</h3>
-                            </div>
+                        <div class="col-md-6">
+                            <label>Date of Birth <span>*</span></label>
+                            <input type="date" class="form-control" v-model="form.date_of_birth">
                         </div>
-
-                        <div class="developer-note mt-4">
-                            By submitting this form, you confirm that the information provided is accurate and ready for school review.
+                        <div class="col-md-4">
+                            <label>Grade Applying For <span>*</span></label>
+                            <input type="text" class="form-control" placeholder="e.g., Grade 6" v-model="form.grade_applying">
                         </div>
-                    </template>
+                        <div class="col-md-4">
+                            <label>Medium <span>*</span></label>
+                            <select class="form-select" v-model="form.medium">
+                                <option value="">Select an option</option>
+                                <option value="Tamil">Tamil</option>
+                                <option value="English">English</option>
+                                <option value="Sinhala">Sinhala</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label>Birth Certificate Number <span>*</span></label>
+                            <input type="text" class="form-control" placeholder="Enter certificate number" v-model="form.birth_certificate_no">
+                        </div>
+                        <div class="col-md-6">
+                            <label>Distance From School (km) <span>*</span></label>
+                            <input type="number" class="form-control" placeholder="Enter distance" v-model="form.distance_from_school">
+                        </div>
+                        <div class="col-md-6">
+                        </div>
+                        <div class="col-12">
+                            <label>Address <span>*</span></label>
+                            <textarea class="form-control" rows="4" placeholder="Enter full address" v-model="form.student_address"></textarea>
+                        </div>
+                    </div>
 
                     <div class="d-flex flex-column flex-md-row justify-content-between gap-3 mt-4">
-                        <button class="btn-outline-brand" type="button" @click="$emit('prev-step')" :disabled="currentStepIndex === 0">Previous</button>
-                        <button class="btn-brand-alt" type="button" @click="$emit('next-step')" :disabled="sending">
-                            <span v-if="sending">Submitting...</span>
-                            <span v-else>{{ currentStepIndex === steps.length - 1 ? 'Submit Application' : 'Continue' }}</span>
-                        </button>
+                        <button class="btn-outline-brand" type="button" disabled>Previous</button>
+                        <button class="btn-brand" type="button">Continue</button>
                     </div>
                 </div>
             </div>

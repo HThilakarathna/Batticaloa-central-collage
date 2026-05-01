@@ -972,22 +972,127 @@ a {
     border: 1px solid rgba(15, 47, 103, 0.12);
 }
 
+/* Button group wrapper */
+.btn-group,
+.button-group,
+.button-wrapper {
+    display: flex;
+    gap: 1rem;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    flex-wrap: wrap;
+}
+
+@media (max-width: 767px) {
+    .btn-group,
+    .button-group,
+    .button-wrapper {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .btn-group button,
+    .button-group button,
+    .button-wrapper button {
+        width: 100%;
+    }
+}
+
 .section-shell {
     padding: 1.25rem 0 4.5rem;
     padding-left: max(1rem, env(safe-area-inset-left));
     padding-right: max(1rem, env(safe-area-inset-right));
+    width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden;
+    display: block;
 }
 
 @media (max-width: 767px) {
     .section-shell {
-        padding: 1rem 0 2.5rem;
+        padding: 1rem 0.5rem 2.5rem 0.5rem;
+        overflow-x: hidden;
     }
 }
 
 @media (max-width: 575px) {
     .section-shell {
-        padding: 0.75rem 0 2rem;
+        padding: 0.75rem 0.5rem 2rem 0.5rem;
+        overflow-x: hidden;
     }
+}
+
+.container {
+    width: 100%;
+    max-width: 1320px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    box-sizing: border-box;
+}
+
+@media (max-width: 1399px) {
+    .container {
+        max-width: 1140px;
+    }
+}
+
+@media (max-width: 1199px) {
+    .container {
+        max-width: 960px;
+    }
+}
+
+@media (max-width: 991px) {
+    .container {
+        max-width: 720px;
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
+    }
+}
+
+@media (max-width: 767px) {
+    .container {
+        max-width: 100%;
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
+    }
+}
+
+@media (max-width: 575px) {
+    .container {
+        max-width: 100%;
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+    }
+}
+
+/* Gap utilities for grid containers */
+.gap-1 { gap: 0.25rem; }
+.gap-2 { gap: 0.5rem; }
+.gap-3 { gap: 1rem; }
+.gap-4 { gap: 1.5rem; }
+.gap-5 { gap: 3rem; }
+.gap-6 { gap: 4rem; }
+
+@media (max-width: 991px) {
+    .gap-5 { gap: 2rem; }
+    .gap-6 { gap: 2.5rem; }
+}
+
+@media (max-width: 767px) {
+    .gap-4 { gap: 1rem; }
+    .gap-5 { gap: 1.5rem; }
+    .gap-6 { gap: 2rem; }
+}
+
+@media (max-width: 575px) {
+    .gap-3 { gap: 0.75rem; }
+    .gap-4 { gap: 1rem; }
+    .gap-5 { gap: 1.25rem; }
+    .gap-6 { gap: 1.5rem; }
 }
 
 .section-card {
@@ -1317,8 +1422,27 @@ a {
     width: 100%;
     max-width: 100%;
     box-sizing: border-box;
+    display: grid;
+    place-items: start;
+    grid-auto-flow: row;
+    align-content: start;
     overflow: hidden;
+    overflow-x: hidden;
     margin: 0 auto;
+}
+
+@media (min-width: 1200px) {
+    .form-shell {
+        max-width: 900px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+.form-shell > * {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 .form-shell label {
@@ -1335,6 +1459,8 @@ a {
         padding: 1.25rem;
         border-radius: var(--radius-lg);
         margin-bottom: 1.5rem;
+        display: grid;
+        place-items: stretch;
     }
 
     .form-shell label {
@@ -1347,6 +1473,8 @@ a {
         padding: 1rem;
         border-radius: var(--radius-md);
         margin-bottom: 1rem;
+        display: grid;
+        place-items: stretch;
     }
 
     .form-shell label {
@@ -1355,12 +1483,26 @@ a {
     }
 }
 
+/* Center content inside form-shell */
+.form-shell .section-head {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+.form-shell .row {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
 .form-control,
 .form-select {
     border-radius: 16px;
     border: 1px solid rgba(148, 163, 184, 0.3);
     padding: 0.85rem 1rem;
     width: 100%;
+    max-width: 100%;
     box-sizing: border-box;
     box-shadow: none !important;
     min-height: var(--min-touch-target);
@@ -1368,6 +1510,7 @@ a {
     font-family: 'Manrope', sans-serif;
     background: rgba(255, 255, 255, 0.98);
     transition: all 0.2s ease;
+    overflow-x: hidden;
 }
 
 .form-control::placeholder,
@@ -1442,6 +1585,22 @@ label {
     max-width: 100%;
     box-sizing: border-box;
     gap: 1.5rem;
+    overflow-x: hidden;
+    overflow-y: visible;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media (min-width: 1200px) {
+    .apply-layout {
+        max-width: 960px;
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
 }
 
 @media (max-width: 991px) {
@@ -1471,6 +1630,13 @@ label {
     gap: 1rem;
     width: 100%;
     box-sizing: border-box;
+    max-width: 100%;
+}
+
+@media (min-width: 1200px) {
+    .row {
+        gap: 1.25rem;
+    }
 }
 
 .row.g-0 {
@@ -1672,6 +1838,37 @@ label {
 .mt-4 { margin-top: 1.5rem; }
 .mt-5 { margin-top: 3rem; }
 
+/* Padding utilities */
+.p-1 { padding: 0.25rem; }
+.p-2 { padding: 0.5rem; }
+.p-3 { padding: 1rem; }
+.p-4 { padding: 1.5rem; }
+.p-5 { padding: 3rem; }
+
+.px-1 { padding-left: 0.25rem; padding-right: 0.25rem; }
+.px-2 { padding-left: 0.5rem; padding-right: 0.5rem; }
+.px-3 { padding-left: 1rem; padding-right: 1rem; }
+.px-4 { padding-left: 1.5rem; padding-right: 1.5rem; }
+.px-5 { padding-left: 3rem; padding-right: 3rem; }
+
+.py-1 { padding-top: 0.25rem; padding-bottom: 0.25rem; }
+.py-2 { padding-top: 0.5rem; padding-bottom: 0.5rem; }
+.py-3 { padding-top: 1rem; padding-bottom: 1rem; }
+.py-4 { padding-top: 1.5rem; padding-bottom: 1.5rem; }
+.py-5 { padding-top: 3rem; padding-bottom: 3rem; }
+
+@media (max-width: 991px) {
+    .py-5 { padding-top: 2rem; padding-bottom: 2rem; }
+    .px-5 { padding-left: 2rem; padding-right: 2rem; }
+    .p-5 { padding: 2rem; }
+}
+
+@media (max-width: 767px) {
+    .py-5 { padding-top: 1.5rem; padding-bottom: 1.5rem; }
+    .px-5 { padding-left: 1.5rem; padding-right: 1.5rem; }
+    .p-5 { padding: 1.5rem; }
+}
+
 .d-block { display: block; }
 .d-inline { display: inline; }
 .d-inline-block { display: inline-block; }
@@ -1681,6 +1878,33 @@ label {
 
 .align-items-center { align-items: center; }
 .justify-content-between { justify-content: space-between; }
+
+/* Flex utilities */
+.flex-row { flex-direction: row; }
+.flex-column { flex-direction: column; }
+.flex-wrap { flex-wrap: wrap; }
+.flex-nowrap { flex-wrap: nowrap; }
+
+.justify-content-start { justify-content: flex-start; }
+.justify-content-end { justify-content: flex-end; }
+.justify-content-center { justify-content: center; }
+.justify-content-around { justify-content: space-around; }
+.justify-content-evenly { justify-content: space-evenly; }
+
+.align-items-start { align-items: flex-start; }
+.align-items-end { align-items: flex-end; }
+.align-items-stretch { align-items: stretch; }
+
+.flex-md-row {
+    flex-direction: row;
+}
+
+@media (max-width: 767px) {
+    .flex-md-row {
+        flex-direction: column;
+        width: 100%;
+    }
+}
 
 .stepper {
     display: flex;
@@ -2352,16 +2576,195 @@ label {
     border: 1px solid rgba(220, 38, 38, 0.15);
 }
 
-.form-control {
-    border-radius: 14px;
-    border: 1px solid var(--slate-200);
+.form-control,
+.form-select {
+    display: block;
+    width: 100%;
     padding: 0.75rem 1rem;
-    transition: all 0.2s;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #333;
+    background-color: #ffffff;
+    background-clip: padding-box;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    box-sizing: border-box;
+    font-family: inherit;
+    margin: 0;
+    min-height: 44px;
 }
 
-.form-control:focus {
-    border-color: var(--sky-500);
-    box-shadow: 0 0 0 4px rgba(29, 155, 240, 0.1);
+.form-control::placeholder,
+.form-select::placeholder {
+    color: #999;
+    opacity: 1;
+}
+
+.form-control:focus,
+.form-select:focus {
+    color: #333;
+    background-color: #fff;
+    border-color: #0a1f44;
+    outline: 0;
+    box-shadow: 0 0 0 3px rgba(10, 31, 68, 0.1);
+}
+
+textarea.form-control {
+    min-height: 100px;
+    resize: vertical;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    font-size: 0.95rem;
+    color: #333;
+}
+
+label span {
+    color: #dc2626;
+}
+
+/* Form Shell - Student Information Section (Clean New Design) */
+.form-shell {
+    padding: 1.5rem;
+    border-radius: var(--radius-xl);
+    background: rgba(255, 255, 255, 0.96);
+    border: 1px solid rgba(226, 232, 240, 0.8);
+    box-shadow: var(--shadow-sm);
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    display: block;
+    overflow: visible;
+}
+
+.form-shell .row {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 1.5rem;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.form-shell .row > * {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+/* Full-width field wrapper */
+.form-shell .col-12 {
+    grid-column: span 12;
+}
+
+/* Half-width field wrapper */
+.form-shell .col-md-6 {
+    grid-column: span 6;
+}
+
+/* Third-width field wrapper */
+.form-shell .col-md-4 {
+    grid-column: span 4;
+}
+
+/* Responsive - Tablet and below */
+@media (max-width: 991px) {
+    .form-shell {
+        padding: 1.5rem;
+    }
+
+    .form-shell .row {
+        gap: 1.25rem;
+    }
+
+    .form-shell .col-md-4 {
+        grid-column: span 6;
+    }
+}
+
+/* Responsive - Mobile */
+@media (max-width: 767px) {
+    .form-shell {
+        padding: 1.25rem;
+    }
+
+    .form-shell .row {
+        gap: 1rem;
+    }
+
+    .form-shell .col-md-4,
+    .form-shell .col-md-6,
+    .form-shell .col-12 {
+        grid-column: span 12;
+    }
+}
+
+/* Responsive - Small mobile */
+@media (max-width: 575px) {
+    .form-shell {
+        padding: 1rem;
+    }
+
+    .form-shell .row {
+        gap: 0.875rem;
+    }
+}
+
+/* Form Navigation Buttons */
+.form-shell .d-flex {
+    display: flex;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow: visible;
+    margin-top: 1.5rem;
+}
+
+.form-shell .d-flex.flex-column {
+    flex-direction: column;
+}
+
+.form-shell .d-flex.flex-md-row {
+    flex-direction: row;
+    gap: 1rem;
+}
+
+.form-shell .d-flex.justify-content-between {
+    justify-content: space-between;
+}
+
+.form-shell .d-flex.gap-3 {
+    gap: 1rem;
+}
+
+.form-shell button {
+    width: 100%;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    min-height: 44px;
+    border-radius: 8px;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+    flex: 1;
+}
+
+.form-shell button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.form-shell button:active {
+    transform: scale(0.98);
 }
 
 .welcome-greeting {

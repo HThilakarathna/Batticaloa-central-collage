@@ -1043,6 +1043,39 @@ li {
     }
 }
 
+/* Medium Tablets & Small Desktops (768px - 991px) */
+@media (min-width: 768px) and (max-width: 991px) {
+    .apply-layout {
+        gap: 1.25rem;
+        padding: 0 1rem;
+    }
+
+    .apply-layout .row {
+        gap: 1rem;
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    .apply-layout .row.g-3 {
+        gap: 1rem;
+    }
+
+    .apply-layout .col-md-6 {
+        grid-column: span 6;
+    }
+
+    .apply-layout .col-md-4 {
+        grid-column: span 4;
+    }
+
+    .apply-layout .section-card {
+        padding: 1.5rem;
+    }
+}
+
 /* Tablets (767px and below) */
 @media (max-width: 767px) {
     .apply-layout {
@@ -1052,6 +1085,13 @@ li {
 
     .apply-layout .row {
         gap: 0.75rem;
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
     }
 
     .apply-layout .row.g-3 {
@@ -1061,6 +1101,14 @@ li {
     .apply-layout .col-md-4,
     .apply-layout .col-md-6 {
         grid-column: span 12;
+        margin: 0;
+        padding: 0;
+    }
+
+    .apply-layout .section-card {
+        padding: 1.25rem;
+        border-radius: 10px;
+        margin-bottom: 0.875rem;
     }
 
     .apply-layout .section-card {
@@ -1070,7 +1118,11 @@ li {
     }
 
     .apply-layout .form-shell {
-        padding: 1.25rem;
+        padding: 1rem;
+    }
+
+    .form-shell {
+        padding: 1rem;
     }
 
     .apply-layout .form-shell h3 {
@@ -1149,13 +1201,25 @@ li {
     }
 
     .apply-layout .row {
-        margin-left: -0.5rem;
-        margin-right: -0.5rem;
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        gap: 0.75rem;
+        margin: 0;
+        padding: 0;
     }
 
     .apply-layout .col {
-        padding-left: 0.5rem;
-        padding-right: 0.5rem;
+        grid-column: span 12;
+        margin: 0;
+        padding: 0;
+    }
+
+    .apply-layout .col-md-4,
+    .apply-layout .col-md-6 {
+        grid-column: span 12;
     }
 
     .apply-layout .file-input {
@@ -1165,13 +1229,80 @@ li {
 
 /* Small Mobile Devices (575px and below) */
 @media (max-width: 575px) {
-    .apply-layout {
-        gap: 0.75rem;
-        padding: 0 0.5rem;
+    .form-shell {
+        padding: 0.75rem;
+    }
+
+    .form-shell .row {
+        gap: 0.5rem;
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        width: 100%;
+        max-width: 100%;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    .form-shell .col-md-4,
+    .form-shell .col-md-6,
+    .form-shell .col-12 {
+        grid-column: span 12;
+        margin: 0;
+        padding: 0;
+    }
+
+    .form-shell label {
+        font-size: 0.9rem;
+        margin-bottom: 0.35rem;
+    }
+
+    .form-shell input,
+    .form-shell select,
+    .form-shell textarea {
+        font-size: 1rem;
+        padding: 0.5rem 0.5rem;
+        min-height: 44px;
+        border-radius: 6px;
+        width: 100%;
+        border: 1px solid #ddd;
+        box-sizing: border-box;
+    }
+
+    .form-shell textarea {
+        min-height: 80px;
+    }
+
+    .form-shell input::placeholder,
+    .form-shell textarea::placeholder {
+        font-size: 0.8rem;
+        color: #999;
+    }
+
+    .form-shell button {
+        width: 100%;
+        padding: 0.5rem 0.75rem;
+        font-size: 0.9rem;
+        min-height: 42px;
+    }
+
+    .form-shell .d-flex.flex-md-row {
+        flex-direction: column;
+    }
+
+    .form-shell .d-flex button {
+        width: 100%;
     }
 
     .apply-layout .row {
         gap: 0.5rem;
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
     }
 
     .apply-layout .row.g-3 {
@@ -1182,6 +1313,8 @@ li {
     .apply-layout .col-md-6,
     .apply-layout .col-sm-6 {
         grid-column: span 12;
+        margin: 0;
+        padding: 0;
     }
 
     .apply-layout .section-card {
@@ -1191,8 +1324,54 @@ li {
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     }
 
-    .apply-layout .form-shell {
-        padding: 1rem;
+    .form-shell {
+        padding: 1.25rem;
+    }
+
+    .form-shell .row {
+        gap: 1rem;
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        width: 100%;
+        max-width: 100%;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    .form-shell .col-md-4,
+    .form-shell .col-md-6,
+    .form-shell .col-12 {
+        grid-column: span 12;
+        margin: 0;
+        padding: 0;
+    }
+
+    .form-shell .form-group {
+        margin-bottom: 0;
+    }
+
+    .form-shell label {
+        font-size: 0.95rem;
+        margin-bottom: 0.375rem;
+    }
+
+    .form-shell input,
+    .form-shell select,
+    .form-shell textarea {
+        font-size: 1rem;
+        padding: 0.625rem 0.75rem;
+        min-height: 44px;
+        border-radius: 6px;
+        width: 100%;
+        border: 1px solid #ddd;
+        box-sizing: border-box;
+    }
+
+    .form-shell input::placeholder,
+    .form-shell textarea::placeholder {
+        font-size: 0.875rem;
+        color: #999;
     }
 
     .apply-layout .form-shell h3 {
@@ -1284,22 +1463,44 @@ li {
 
     .apply-layout button {
         width: 100%;
+        max-width: 100%;
         padding: 0.625rem;
         font-size: 0.9rem;
         min-height: 44px;
         border-radius: 6px;
         font-weight: 500;
         transition: all 0.3s ease;
+        box-sizing: border-box;
+        overflow: hidden;
     }
 
     .apply-layout button:active {
         transform: scale(0.98);
     }
 
+    .apply-layout .d-flex {
+        display: flex;
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+        overflow-x: hidden;
+    }
+
+    .apply-layout .d-flex.flex-column {
+        flex-direction: column;
+    }
+
+    .apply-layout .d-flex.flex-md-row button {
+        width: 100%;
+    }
+
     .apply-layout .btn-group {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 0.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
     }
 
     .apply-layout .btn-group--inline {
@@ -1332,14 +1533,7 @@ li {
         color: #721c24;
     }
 
-    .apply-layout .row {
-        margin-left: -0.375rem;
-        margin-right: -0.375rem;
-    }
-
     .apply-layout .col {
-        padding-left: 0.375rem;
-        padding-right: 0.375rem;
         margin-bottom: 0.75rem;
     }
 

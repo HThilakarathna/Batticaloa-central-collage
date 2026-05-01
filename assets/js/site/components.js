@@ -218,7 +218,7 @@ export const SiteFooter = {
                     <div>&copy; 2026 {{ site.name }}. All rights reserved.</div>
                     <div class="footer-dev-credit">
                         Designed &amp; Developed by
-                        <a href="#" class="footer-dev-link" target="_blank" rel="noopener">King Sparrow Group of Companies Pvt Ltd</a>
+                        <a href="https://www.kingsparrowgroups.com/" class="footer-dev-link" target="new tab" rel="developers">King Sparrow Group of Companies Pvt Ltd</a>
                     </div>
                 </div>
             </div>
