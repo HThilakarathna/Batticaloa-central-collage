@@ -334,12 +334,12 @@ a {
 
     .drawer-header .btn-icon {
         background: var(--white);
-        color: var(--sky-500);
+        color: #0a1f44;
     }
 
     .drawer-header .btn-icon:hover {
         background: var(--sky-50);
-        color: var(--sky-600);
+        color: #0a1f44;
     }
 
     .drawer-body {
