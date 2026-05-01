@@ -1,0 +1,496 @@
+/* ─── Enhanced Responsive Design Improvements ─────────────────── */
+/* This file contains modern responsive design enhancements */
+
+/* Hero Section Mobile Fix */
+.page-hero {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden !important;
+}
+
+.hero-container {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+@media (max-width: 991px) {
+    .page-hero__content,
+    .hero-image-panel,
+    .hero-actions,
+    .hero-metrics {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    .page-hero {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: center;
+    }
+
+    .hero-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+@media (max-width: 575px) {
+    .page-hero {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+
+    .page-hero__content {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 0 1rem !important;
+        box-sizing: border-box;
+    }
+
+    .hero-container {
+        width: 100%;
+        max-width: 100%;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+
+    .eyebrow,
+    .hero-title,
+    .hero-copy,
+    .hero-actions,
+    .hero-metrics {
+        padding-left: 0;
+        padding-right: 0;
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    .hero-image-panel {
+        width: 100%;
+        max-width: 100%;
+        padding: 0 1rem;
+        box-sizing: border-box;
+    }
+}
+
+/* Improved breakpoint strategy */
+@media (max-width: 1920px) {
+    :root {
+        --section-max-width: 1400px;
+    }
+}
+
+@media (max-width: 1440px) {
+    :root {
+        --section-max-width: 1200px;
+    }
+}
+
+@media (max-width: 1024px) {
+    :root {
+        --section-max-width: 960px;
+    }
+}
+
+@media (max-width: 768px) {
+    :root {
+        --section-max-width: 100%;
+    }
+}
+
+/* Support for landscape orientation on mobile devices */
+@media (max-height: 500px) and (orientation: landscape) {
+    .page-hero {
+        min-height: auto;
+        padding-top: 3.5rem;
+        padding-bottom: 2rem;
+    }
+
+    .hero-container {
+        padding-top: 2.5rem;
+        padding-bottom: 1.5rem;
+    }
+
+    .hero-title {
+        font-size: clamp(1rem, 4vw, 1.5rem);
+        margin-bottom: 0.5rem;
+    }
+
+    .hero-copy {
+        font-size: 0.85rem;
+    }
+
+    .hero-metrics {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.5rem;
+        margin-top: 1rem;
+    }
+
+    .hero-img-badge,
+    .hero-img-stat {
+        transform: scale(0.75);
+    }
+}
+
+/* High DPI displays (Retina) */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .brand-logo-wrap img {
+        image-rendering: -webkit-optimize-contrast;
+    }
+
+    img {
+        image-rendering: -webkit-optimize-contrast;
+    }
+}
+
+/* Touch device enhancements */
+@media (hover: none) and (pointer: coarse) {
+    /* Increase touch targets */
+    .nav-chip,
+    .btn-brand,
+    .btn-brand-alt,
+    .btn-outline-brand,
+    .btn-glass {
+        min-height: 48px;
+        min-width: 48px;
+    }
+
+    .btn-icon {
+        min-width: 48px;
+        min-height: 48px;
+    }
+
+    .form-control,
+    .form-select {
+        min-height: 48px;
+    }
+
+    /* Reduce unnecessary hover effects on touch devices */
+    .feature-card:hover,
+    .notice-card:hover,
+    .program-card:hover {
+        transform: none;
+    }
+
+    /* Provide better visual feedback on touch */
+    .nav-chip:active,
+    .btn-brand:active,
+    .btn-brand-alt:active {
+        opacity: 0.8;
+        transform: scale(0.98);
+    }
+}
+
+/* Non-touch devices - keep original hover effects */
+@media (hover: hover) and (pointer: fine) {
+    .nav-chip:hover,
+    .btn-brand:hover,
+    .btn-brand-alt:hover {
+        transform: translateY(-2px);
+    }
+}
+
+/* Print styles for better responsiveness */
+@media print {
+    body {
+        background: white;
+    }
+
+    .topbar,
+    .back-to-top,
+    .nav-hamburger,
+    .nav-overlay,
+    .site-footer {
+        display: none !important;
+    }
+
+    .page-hero {
+        min-height: auto;
+        color: black;
+    }
+
+    .hero-overlay,
+    .page-hero::before,
+    .page-hero::after {
+        display: none;
+    }
+
+    .section-card,
+    .card {
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
+
+    img {
+        max-width: 100%;
+    }
+
+    a {
+        color: black;
+        text-decoration: none;
+    }
+}
+
+/* Improved text rendering */
+@media (max-width: 480px) {
+    body {
+        -webkit-text-size-adjust: 100%;
+        -ms-text-size-adjust: 100%;
+        text-size-adjust: 100%;
+    }
+
+    /* Prevent font size adjustments on input focus in iOS */
+    input,
+    textarea,
+    select {
+        font-size: 16px !important;
+    }
+}
+
+/* Safe area insets for notched devices */
+@supports (padding: max(0px)) {
+    .topbar {
+        padding-left: max(1rem, env(safe-area-inset-left));
+        padding-right: max(1rem, env(safe-area-inset-right));
+    }
+
+    .page-hero__content,
+    .section-shell {
+        padding-left: max(1rem, env(safe-area-inset-left));
+        padding-right: max(1rem, env(safe-area-inset-right));
+    }
+
+    .site-shell::before,
+    .site-shell::after {
+        left: env(safe-area-inset-left);
+        right: env(safe-area-inset-right);
+    }
+}
+
+/* Scrollbar improvements for different browsers */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(241, 245, 249, 0.5);
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(148, 163, 184, 0.3);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(148, 163, 184, 0.5);
+}
+
+/* Smooth scroll behavior support */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Improved focus visible for keyboard navigation */
+:focus-visible {
+    outline: 2px solid var(--sky-500);
+    outline-offset: 2px;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible {
+    outline: 2px solid var(--sky-500);
+    outline-offset: 2px;
+}
+
+/* Container queries for component-level responsiveness */
+@supports (container-type: inline-size) {
+    @container (max-width: 500px) {
+        .soft-grid--three,
+        .soft-grid--four {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    @container (min-width: 500px) and (max-width: 800px) {
+        .soft-grid--three {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+}
+
+/* Better image rendering on all devices */
+img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+}
+
+/* Improved table responsiveness for smaller screens */
+@media (max-width: 640px) {
+    .data-table {
+        font-size: 0.75rem;
+    }
+
+    .data-table th,
+    .data-table td {
+        padding: 0.6rem 0.8rem;
+    }
+
+    .table-actions {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .btn-icon {
+        flex: 1;
+    }
+}
+
+/* Better video/iframe responsiveness */
+iframe,
+video {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+.video-wrapper,
+.iframe-wrapper {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+}
+
+.video-wrapper iframe,
+.iframe-wrapper iframe,
+.video-wrapper video,
+.iframe-wrapper video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+/* Improved spacing for dense information on mobile */
+@media (max-width: 575px) {
+    .notice-meta,
+    .staff-meta,
+    .tiny-copy {
+        font-size: 0.82rem;
+        line-height: 1.4;
+    }
+
+    .pill-badge {
+        font-size: 0.65rem;
+        padding: 0.35rem 0.65rem;
+    }
+
+    p {
+        line-height: 1.6;
+    }
+}
+
+/* Improved card layouts for mobile */
+@media (max-width: 767px) {
+    .card,
+    .glass-card,
+    .feature-card,
+    .notice-card,
+    .program-card,
+    .timeline-card,
+    .staff-card,
+    .recognition-card {
+        border-radius: var(--radius-lg);
+    }
+}
+
+@media (max-width: 480px) {
+    .card,
+    .glass-card,
+    .feature-card,
+    .notice-card,
+    .program-card,
+    .timeline-card,
+    .staff-card,
+    .recognition-card {
+        border-radius: var(--radius-md);
+    }
+}
+
+/* Better spacing for list items */
+ul,
+ol {
+    padding-left: 1.5rem;
+}
+
+@media (max-width: 575px) {
+    ul,
+    ol {
+        padding-left: 1.25rem;
+    }
+}
+
+li {
+    margin-bottom: 0.5rem;
+}
+
+/* Improved heading hierarchy for mobile */
+@media (max-width: 767px) {
+    h1 {
+        font-size: clamp(1.5rem, 5vw, 2rem);
+    }
+
+    h2 {
+        font-size: clamp(1.25rem, 4vw, 1.75rem);
+    }
+
+    h3 {
+        font-size: clamp(1rem, 3vw, 1.25rem);
+    }
+
+    h4,
+    h5,
+    h6 {
+        font-size: clamp(0.9rem, 2.5vw, 1rem);
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: clamp(1.25rem, 4vw, 1.5rem);
+    }
+
+    h2 {
+        font-size: clamp(1rem, 3.5vw, 1.25rem);
+    }
+
+    h3 {
+        font-size: clamp(0.9rem, 2.5vw, 1rem);
+    }
+}
+
+/* Better performance with will-change on animations */
+@media (prefers-reduced-motion: no-preference) {
+    .hero-school-img-wrap,
+    .feature-card,
+    .notice-card,
+    .program-card {
+        will-change: transform;
+    }
+}
