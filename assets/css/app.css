@@ -500,6 +500,7 @@ main {
 
 .page-hero--home {
     min-height: 100vh;
+    overflow: hidden;
 }
 
 .hero-bg-image {
