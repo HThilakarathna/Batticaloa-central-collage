@@ -507,8 +507,7 @@ main {
     inset: 0;
     overflow-y: hidden;
     background:
-        url('../images/hero-bg.png') center / cover no-repeat,
-        url('../images/Image (School Building).png') center / cover no-repeat;
+        url('../images/school.jpg') center / cover no-repeat;
     z-index: 0;
     transform: scale(1.04);
     animation: hero-zoom 18s ease-in-out infinite alternate;
@@ -768,7 +767,8 @@ main {
     justify-content: flex-end;
     width: 100%;
     max-width: 100%;
-    overflow: hidden;
+    overflow: visible;
+    padding: 1.25rem;
     min-width: 0;
 }
 
@@ -779,7 +779,7 @@ main {
     transition: opacity 1s 0.25s cubic-bezier(0.22, 1, 0.36, 1),
         transform 1s 0.25s cubic-bezier(0.22, 1, 0.36, 1);
     max-width: 100%;
-    overflow: hidden;
+    overflow: visible;
 }
 
 .hero-school-img-wrap.hero-animate-in {
