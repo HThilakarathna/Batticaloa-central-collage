@@ -35,7 +35,15 @@ function render_public_page(string $page): void
     <link rel="stylesheet" href="assets/css/responsive-enhancements.css">
 </head>
 <body>
-    <div id="app" data-page="<?= e($page) ?>"
+    <div id="app" data-page="<?= e($page) ?>">
+        <div class="shell-loader">
+            <div class="shell-loader__ring"></div>
+            <p>Loading school portal...</p>
+        </div>
+    </div>
+
+    <script>
+        window.SITE_CONTEXT = {
             page: <?= json_encode($page, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) ?>,
             apiUrl: 'api/index.php'
         };
