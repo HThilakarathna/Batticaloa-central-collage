@@ -505,6 +505,7 @@ main {
 .hero-bg-image {
     position: absolute;
     inset: 0;
+    overflow-y: hidden;
     background:
         url('../images/hero-bg.png') center / cover no-repeat,
         url('../images/Image (School Building).png') center / cover no-repeat;

@@ -20,6 +20,10 @@
         display: none;
     }
 
+    .hero-image-panel {
+        display: none;
+    }
+
     .page-hero {
         flex-direction: column;
         min-height: auto;
