@@ -594,7 +594,7 @@ a {
     .page-hero {
         flex-direction: column;
         min-height: auto;
-        padding-top: 4.5rem;
+        padding: 70px 0 0 0;
     }
 
     .hero-container {
