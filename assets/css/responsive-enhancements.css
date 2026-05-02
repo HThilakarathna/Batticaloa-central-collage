@@ -1,6 +1,19 @@
 /* ─── Enhanced Responsive Design Improvements ─────────────────── */
 /* This file contains modern responsive design enhancements */
 
+/* Hide scrollbar on mobile devices */
+@media (max-width: 991px) {
+    html, body {
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+
+    html::-webkit-scrollbar,
+    body::-webkit-scrollbar {
+        display: none;
+    }
+}
+
 /* Hero Section Mobile Fix - Mobile only */
 @media (max-width: 991px) {
     .page-hero {
