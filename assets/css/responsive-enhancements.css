@@ -16,6 +16,10 @@
 
 /* Hero Section Mobile Fix - Mobile only */
 @media (max-width: 991px) {
+    .hero-school-img-wrap.hero-animate-in {
+        display: none;
+    }
+
     .page-hero {
         flex-direction: column;
         min-height: auto;
@@ -499,6 +503,27 @@ li {
     }
 }
 /* ─── Admin Dashboard Mobile Enhancements ─────────────────────── */
+
+/* Keep admin content inside the viewport on narrow screens. */
+@media (max-width: 1199px) {
+    #admin-app,
+    .admin-shell,
+    .admin-main,
+    .admin-main > section,
+    .admin-card,
+    .welcome-greeting,
+    .metric-grid,
+    .editor-shell {
+        width: 100%;
+        min-width: 0;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    .admin-main {
+        overflow-x: hidden;
+    }
+}
 
 /* Extra small devices (portrait) */
 @media (max-width: 480px) {
