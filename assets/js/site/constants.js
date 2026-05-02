@@ -1,5 +1,20 @@
 export const applicationSteps = [
     {
+        title: 'Student Information',
+        description: 'Basic profile and admission details',
+        fields: [
+            { key: 'student_name', label: 'Full Name', type: 'text', required: true, width: 'col-12', placeholder: 'Enter full name' },
+            { key: 'name_with_initials', label: 'Name With Initials', type: 'text', required: true, width: 'col-12', placeholder: 'Enter name with initials' },
+            { key: 'gender', label: 'Gender', type: 'select', required: true, width: 'col-md-6', options: ['Male', 'Female'] },
+            { key: 'date_of_birth', label: 'Date of Birth', type: 'date', required: true, width: 'col-md-6' },
+            { key: 'grade_applying', label: 'Grade Applying For', type: 'text', required: true, width: 'col-md-4', placeholder: 'e.g., Grade 6' },
+            { key: 'medium', label: 'Medium', type: 'select', required: true, width: 'col-md-4', options: ['Tamil', 'English', 'Sinhala'] },
+            { key: 'birth_certificate_no', label: 'Birth Certificate Number', type: 'text', required: true, width: 'col-md-4', placeholder: 'Enter certificate number' },
+            { key: 'distance_from_school', label: 'Distance From School (km)', type: 'number', required: true, width: 'col-md-6', placeholder: 'Enter distance' },
+            { key: 'student_address', label: 'Address', type: 'textarea', required: true, width: 'col-12', placeholder: 'Enter full address' }
+        ]
+    },
+    {
         title: 'Parent & Guardian',
         description: 'Primary family contact information',
         fields: [

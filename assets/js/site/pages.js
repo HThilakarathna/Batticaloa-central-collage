@@ -13,7 +13,7 @@ export const HomePage = {
     },
     setup() { return { previewText }; },
     template: `
-        <section class="section-shell">
+        <section>
             <div class="container d-grid gap-5">
 
                 <!-- Welcome Banner with school image -->
@@ -157,7 +157,7 @@ export const AboutPage = {
     props: { pageData: Object },
     methods: { arrayValue },
     template: `
-        <section class="section-shell">
+        <section>
             <div class="container d-grid gap-5">
 
                 <!-- About Hero Image Split -->
@@ -252,7 +252,7 @@ export const NoticesPage = {
     emits: ['update:query'],
     methods: { formatDate },
     template: `
-        <section class="section-shell">
+        <section>
             <div class="container d-grid gap-4">
                 <div class="section-card">
                     <div class="row g-3 align-items-center">
@@ -293,7 +293,7 @@ export const HistoryPage = {
     },
     methods: { arrayValue },
     template: `
-        <section class="section-shell">
+        <section>
             <div class="container d-grid gap-5">
 
                 <!-- History Intro Banner -->
@@ -375,7 +375,7 @@ export const AchievementsPage = {
     emits: ['open-achievement'],
     methods: { arrayValue },
     template: `
-        <section class="section-shell">
+        <section>
             <div class="container d-grid gap-5">
 
                 <!-- Top Recognitions -->
@@ -441,7 +441,7 @@ export const StaffPage = {
     },
     methods: { arrayValue },
     template: `
-        <section class="section-shell">
+        <section>
             <div class="container d-grid gap-5">
 
                 <!-- Faculty Grid -->
@@ -534,7 +534,7 @@ export const ContactPage = {
         }
     },
     template: `
-        <section class="section-shell">
+        <section>
             <div class="container d-grid gap-5">
                 <div class="contact-grid">
                     <div class="form-shell reveal-on-scroll">
@@ -687,10 +687,13 @@ export const ApplyPage = {
         },
         isSimpleInput(type) {
             return ['text', 'email', 'date', 'number'].includes(type);
+        },
+        selectedFileName(key) {
+            return this.files?.[key]?.name || 'No file selected';
         }
     },
     template: `
-        <section class="section-shell">
+        <section>
             <div class="container apply-layout">
                 <div class="section-card">
                     <div class="section-head d-block mb-4">
@@ -710,67 +713,92 @@ export const ApplyPage = {
                     </div>
                 </div>
 
-                <div class="form-shell">
+                <div class="form-shell reveal-on-scroll">
                     <div class="section-head d-block mb-4">
-                        <h3>Student Information</h3>
-                        <p>Basic profile and admission details</p>
+                        <span class="muted-kicker">Step {{ currentStepIndex + 1 }} of {{ steps.length }}</span>
+                        <h3>{{ currentStep.title }}</h3>
+                        <p>{{ currentStep.description }}</p>
                     </div>
 
-                    <div class="row g-3">
-                        <div class="col-12">
-                            <label>Full Name <span>*</span></label>
-                            <input type="text" class="form-control" placeholder="Enter full name" v-model="form.student_name">
-                        </div>
-                        <div class="col-12">
-                            <label>Name With Initials <span>*</span></label>
-                            <input type="text" class="form-control" placeholder="Enter name with initials" v-model="form.name_with_initials">
-                        </div>
-                        <div class="col-md-6">
-                            <label>Gender <span>*</span></label>
-                            <select class="form-select" v-model="form.gender">
+                    <div class="status-note mb-3" v-if="status.message" :class="status.ok ? 'status-note--success' : 'status-note--error'">
+                        {{ status.message }}
+                    </div>
+
+                    <div v-if="currentStep.fields.length" class="row">
+                        <div v-for="field in currentStep.fields" :key="field.key" :class="field.width || 'col-12'">
+                            <label :for="'apply-' + field.key">{{ field.label }} <span v-if="field.required">*</span></label>
+
+                            <input
+                                v-if="isSimpleInput(field.type)"
+                                :id="'apply-' + field.key"
+                                :type="field.type"
+                                class="form-control"
+                                :placeholder="field.placeholder || ''"
+                                :value="form[field.key]"
+                                @input="updateField(field.key, $event.target.value)"
+                            >
+
+                            <select
+                                v-else-if="field.type === 'select'"
+                                :id="'apply-' + field.key"
+                                class="form-select"
+                                :value="form[field.key]"
+                                @change="updateField(field.key, $event.target.value)"
+                            >
                                 <option value="">Select an option</option>
-                                <option value="Male">Male</option>
-                                <option value="Female">Female</option>
+                                <option v-for="option in field.options || []" :key="field.key + '-' + option" :value="option">{{ option }}</option>
                             </select>
+
+                            <textarea
+                                v-else-if="field.type === 'textarea'"
+                                :id="'apply-' + field.key"
+                                class="form-control"
+                                rows="4"
+                                :placeholder="field.placeholder || ''"
+                                :value="form[field.key]"
+                                @input="updateField(field.key, $event.target.value)"
+                            ></textarea>
+
+                            <div v-else-if="field.type === 'file'" class="file-field">
+                                <input
+                                    :id="'apply-' + field.key"
+                                    type="file"
+                                    class="form-control"
+                                    @change="$emit('update-file', { key: field.key, event: $event })"
+                                >
+                                <div class="tiny-copy mt-2">{{ selectedFileName(field.key) }}</div>
+                            </div>
+
+                            <div v-if="field.help" class="tiny-copy mt-2">{{ field.help }}</div>
                         </div>
-                        <div class="col-md-6">
-                            <label>Date of Birth <span>*</span></label>
-                            <input type="date" class="form-control" v-model="form.date_of_birth">
+                    </div>
+
+                    <div v-else class="d-grid gap-3">
+                        <div class="section-card" style="padding: 1.25rem;">
+                            <h4 class="mb-2">Declaration Review</h4>
+                            <p class="mb-0">Review your application details using the summary below, then submit the form.</p>
                         </div>
-                        <div class="col-md-4">
-                            <label>Grade Applying For <span>*</span></label>
-                            <input type="text" class="form-control" placeholder="e.g., Grade 6" v-model="form.grade_applying">
-                        </div>
-                        <div class="col-md-4">
-                            <label>Medium <span>*</span></label>
-                            <select class="form-select" v-model="form.medium">
-                                <option value="">Select an option</option>
-                                <option value="Tamil">Tamil</option>
-                                <option value="English">English</option>
-                                <option value="Sinhala">Sinhala</option>
-                            </select>
-                        </div>
-                        <div class="col-md-4">
-                            <label>Birth Certificate Number <span>*</span></label>
-                            <input type="text" class="form-control" placeholder="Enter certificate number" v-model="form.birth_certificate_no">
-                        </div>
-                        <div class="col-md-6">
-                            <label>Distance From School (km) <span>*</span></label>
-                            <input type="number" class="form-control" placeholder="Enter distance" v-model="form.distance_from_school">
-                        </div>
-                        <div class="col-md-6">
-                        </div>
-                        <div class="col-12">
-                            <label>Address <span>*</span></label>
-                            <textarea class="form-control" rows="4" placeholder="Enter full address" v-model="form.student_address"></textarea>
+
+                        <div class="soft-grid soft-grid--two">
+                            <div class="notice-card-modern" v-for="item in summary" :key="item.label" data-tone="Academic">
+                                <div class="staff-meta mb-1">{{ item.label }}</div>
+                                <div class="info-copy"><strong>{{ item.value }}</strong></div>
+                            </div>
                         </div>
                     </div>
 
                     <div class="d-flex flex-column flex-md-row justify-content-between gap-3 mt-4">
-                        <button class="btn-outline-brand" type="button" disabled>Previous</button>
-                        <button class="btn-brand" type="button">Continue</button>
+                        <button class="btn-outline-brand" type="button" @click="$emit('prev-step')" :disabled="currentStepIndex === 0">
+                            Previous
+                        </button>
+                        <button class="btn-brand" type="button" @click="$emit('next-step')" :disabled="sending">
+                            <span v-if="sending">Saving...</span>
+                            <span v-else-if="currentStepIndex === steps.length - 1">Submit Application</span>
+                            <span v-else>Continue</span>
+                        </button>
                     </div>
                 </div>
+
             </div>
         </section>
     `

@@ -44,12 +44,14 @@
 html {
     scroll-behavior: smooth;
     width: 100%;
+    min-width: 0;
     overflow-x: hidden;
 }
 
 body {
     margin: 0;
     width: 100%;
+    min-width: 0;
     overflow-x: hidden;
     font-family: 'Manrope', sans-serif;
     color: var(--slate-800);
@@ -108,7 +110,14 @@ a {
 .site-shell {
     position: relative;
     width: 100%;
+    min-width: 0;
     overflow-x: hidden;
+}
+
+#app,
+main {
+    width: 100%;
+    min-width: 0;
 }
 
 .site-shell::before {
@@ -143,14 +152,12 @@ a {
     -webkit-backdrop-filter: blur(24px) saturate(180%);
     background: rgba(255, 255, 255, 0.75);
     border-bottom: 1px solid rgba(255, 255, 255, 0.5);
-    box-shadow: 0 4px 30px rgba(15, 23, 42, 0.06);
     transition: all 0.35s ease;
 }
 
 .topbar--scrolled {
     background: rgba(10, 22, 50, 0.88);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 8px 40px rgba(10, 22, 50, 0.28);
 }
 
 .topbar--scrolled .brand-title {
@@ -176,6 +183,7 @@ a {
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
+    min-width: 0;
     padding-top: 0.9rem;
     padding-bottom: 0.9rem;
     padding-left: calc(max(1rem, env(safe-area-inset-left)));
@@ -704,21 +712,28 @@ a {
     }
 
     .hero-img-badge {
-        top: -10px;
-        left: -10px;
+        top: 8px;
+        left: 8px;
         transform: scale(0.75);
         transform-origin: top left;
     }
 
     .hero-img-stat {
-        bottom: -10px;
-        right: -10px;
+        bottom: 8px;
+        right: 8px;
         transform: scale(0.75);
         transform-origin: bottom right;
     }
 
     .hero-image-panel {
         padding: 0 1rem;
+        overflow: hidden;
+    }
+
+    .hero-school-img-wrap {
+        width: min(100%, 520px);
+        margin-inline: auto;
+        overflow: hidden;
     }
 
     .page-hero__content {
@@ -750,6 +765,10 @@ a {
 .hero-image-panel {
     display: flex;
     justify-content: flex-end;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+    min-width: 0;
 }
 
 .hero-school-img-wrap {
@@ -758,6 +777,8 @@ a {
     transform: translateX(50px) scale(0.96);
     transition: opacity 1s 0.25s cubic-bezier(0.22, 1, 0.36, 1),
         transform 1s 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+    max-width: 100%;
+    overflow: hidden;
 }
 
 .hero-school-img-wrap.hero-animate-in {
@@ -1004,30 +1025,6 @@ a {
     }
 }
 
-.section-shell {
-    padding: 1.25rem 0 4.5rem;
-    padding-left: max(1rem, env(safe-area-inset-left));
-    padding-right: max(1rem, env(safe-area-inset-right));
-    width: 100%;
-    box-sizing: border-box;
-    overflow-x: hidden;
-    display: block;
-}
-
-@media (max-width: 767px) {
-    .section-shell {
-        padding: 1rem 0.5rem 2.5rem 0.5rem;
-        overflow-x: hidden;
-    }
-}
-
-@media (max-width: 575px) {
-    .section-shell {
-        padding: 0.75rem 0.5rem 2rem 0.5rem;
-        overflow-x: hidden;
-    }
-}
-
 .container {
     width: 100%;
     max-width: 1320px;
@@ -1036,6 +1033,7 @@ a {
     padding-left: 1rem;
     padding-right: 1rem;
     box-sizing: border-box;
+    min-width: 0;
 }
 
 @media (max-width: 1399px) {
@@ -1108,6 +1106,7 @@ a {
     padding: 2rem;
     margin-left: max(0, env(safe-area-inset-left));
     margin-right: max(0, env(safe-area-inset-right));
+    min-width: 0;
 }
 
 @media (max-width: 767px) {
@@ -1434,6 +1433,7 @@ a {
     overflow: hidden;
     overflow-x: hidden;
     margin: 0 auto;
+    min-width: 0;
 }
 
 @media (min-width: 1200px) {
@@ -1596,6 +1596,7 @@ label {
     padding-right: 1rem;
     margin-left: auto;
     margin-right: auto;
+    min-width: 0;
 }
 
 @media (min-width: 1200px) {
@@ -1636,6 +1637,7 @@ label {
     width: 100%;
     box-sizing: border-box;
     max-width: 100%;
+    min-width: 0;
 }
 
 @media (min-width: 1200px) {
@@ -1764,6 +1766,10 @@ label {
 .col-lg-12,
 .col-xl-12 {
     grid-column: span 12;
+}
+
+.row > * {
+    min-width: 0;
 }
 
 /* Small devices (576px and up) */
@@ -2110,21 +2116,28 @@ label {
 }
 
 .hero-bg-image {
-    position: absolute;
-    inset: 0;
+        top: 8px;
+        left: 8px;
     background-image:
         linear-gradient(to bottom, rgba(10, 31, 68, 0.4), rgba(10, 31, 68, 0.7)),
         url('../images/hero-bg.png');
     background-position: center;
     background-size: cover;
-    background-repeat: no-repeat;
-    z-index: 0;
+        bottom: 8px;
+        right: 8px;
     transform: scale(1.04);
     animation: hero-zoom 18s ease-in-out infinite alternate;
 }
 
 .back-to-top {
     position: fixed;
+        overflow: hidden;
+    }
+
+    .hero-school-img-wrap {
+        width: min(100%, 520px);
+        margin-inline: auto;
+        overflow: hidden;
     bottom: 2.5rem;
     right: 2.5rem;
     width: 48px;
@@ -3115,10 +3128,6 @@ label span {
     .admin-card,
     .auth-card {
         padding: 1rem;
-    }
-
-    .section-shell {
-        padding: 1rem 0 2.5rem;
     }
 
     .section-head h2 {

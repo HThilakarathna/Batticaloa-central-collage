@@ -77,6 +77,11 @@
         padding: 0 1rem;
         box-sizing: border-box;
     }
+
+    .site-shell::before,
+    .site-shell::after {
+        display: none;
+    }
 }
 
 /* Improved breakpoint strategy */
@@ -261,8 +266,7 @@
         padding-right: max(1rem, env(safe-area-inset-right));
     }
 
-    .page-hero__content,
-    .section-shell {
+    .page-hero__content {
         padding-left: max(1rem, env(safe-area-inset-left));
         padding-right: max(1rem, env(safe-area-inset-right));
     }
