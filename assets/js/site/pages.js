@@ -19,7 +19,7 @@ export const HomePage = {
                 <!-- Welcome Banner with school image -->
                 <div class="welcome-banner reveal-on-scroll">
                     <div class="welcome-banner__image">
-                        <img src="assets/images/school.jpg" alt="School Building">
+                        <img src="assets/images/school.jpg" alt="School Building" loading="lazy">
                         <div class="welcome-banner__image-overlay">
                             <div class="welcome-badge">
                                 <i class="bi bi-building-fill-check"></i>
@@ -172,7 +172,7 @@ export const AboutPage = {
                         </p>
                     </div>
                     <div class="welcome-banner__image">
-                        <img src="assets/images/school.jpg" alt="School Heritage">
+                        <img src="assets/images/school.jpg" alt="School Heritage" loading="lazy">
                         <div class="welcome-banner__image-overlay">
                             <div class="welcome-badge">
                                 <i class="bi bi-clock-history"></i>
@@ -299,7 +299,7 @@ export const HistoryPage = {
                 <!-- History Intro Banner -->
                 <div class="welcome-banner reveal-on-scroll">
                     <div class="welcome-banner__image">
-                        <img src="assets/images/school.jpg" alt="School Heritage">
+                        <img src="assets/images/school.jpg" alt="School Heritage" loading="lazy">
                         <div class="welcome-banner__image-overlay">
                             <div class="welcome-badge">
                                 <i class="bi bi-bank"></i>
@@ -615,7 +615,7 @@ export const ContactPage = {
                 <!-- Map Section -->
                 <div class="welcome-banner reveal-on-scroll">
                     <div class="welcome-banner__image">
-                        <img src="assets/images/school.jpg" alt="School Location">
+                        <img src="assets/images/school.jpg" alt="School Location" loading="lazy">
                         <div class="welcome-banner__image-overlay">
                             <a class="welcome-badge" :href="site.map_link || '#'" target="_blank" rel="noopener">
                                 <i class="bi bi-geo-alt-fill"></i>

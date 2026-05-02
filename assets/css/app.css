@@ -3972,6 +3972,7 @@ label span {
     display: flex;
     gap: 1rem;
     flex-shrink: 0;
+    flex-direction: column;
 }
 
 @media (max-width: 991px) {
