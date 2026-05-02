@@ -23,15 +23,19 @@
     .page-hero {
         flex-direction: column;
         min-height: auto;
+        overflow: hidden;
     }
 
     .page-hero__content,
+    .hero-bg-image,
+    .hero-particles,
     .hero-image-panel,
     .hero-actions,
     .hero-metrics {
         width: 100%;
         max-width: 100%;
         box-sizing: border-box;
+        overflow: hidden;
     }
 
     .hero-container {
@@ -39,6 +43,8 @@
         flex-direction: column;
         align-items: center;
         width: 100%;
+        max-width: 100%;
+        overflow: hidden;
     }
 }
 
@@ -46,7 +52,7 @@
     .page-hero {
         width: 100%;
         max-width: 100%;
-        overflow-x: hidden;
+        overflow: hidden;
     }
 
     .page-hero__content {
