@@ -236,7 +236,7 @@ main {
     width: var(--min-touch-target);
     height: var(--min-touch-target);
     padding: 8px;
-    background: rgba(15, 47, 103, 0.08);
+    background: rgba(255, 255, 255, 0.918);
     border: none;
     border-radius: 10px;
     cursor: pointer;
@@ -2425,6 +2425,15 @@ label {
     border: 1px solid rgba(226, 232, 240, 0.8);
     transition: transform 0.3s, box-shadow 0.3s;
     min-width: 0;
+}
+
+.metric-card--clickable {
+    cursor: pointer;
+}
+
+.metric-card--clickable:focus-visible {
+    outline: 3px solid rgba(29, 155, 240, 0.28);
+    outline-offset: 3px;
 }
 
 .metric-card:hover {

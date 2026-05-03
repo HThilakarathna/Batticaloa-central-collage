@@ -146,10 +146,10 @@ final class DataStore
             return [
                 'message' => 'The public site will use seeded content until MySQL is configured.',
                 'stats' => [
-                    ['label' => 'Notices', 'value' => count($this->fallbackResources()['notices'])],
-                    ['label' => 'Programs', 'value' => count($this->fallbackResources()['programs'])],
-                    ['label' => 'Achievements', 'value' => count($this->fallbackResources()['achievements'])],
-                    ['label' => 'Staff Members', 'value' => count($this->fallbackResources()['staff_members'])],
+                    ['label' => 'Notices', 'value' => count($this->fallbackResources()['notices']), 'section' => 'notices'],
+                    ['label' => 'Programs', 'value' => count($this->fallbackResources()['programs']), 'section' => 'programs'],
+                    ['label' => 'Achievements', 'value' => count($this->fallbackResources()['achievements']), 'section' => 'achievements'],
+                    ['label' => 'Staff Members', 'value' => count($this->fallbackResources()['staff_members']), 'section' => 'staff_members'],
                 ],
             ];
         }
@@ -162,13 +162,13 @@ final class DataStore
         return [
             'message' => 'Everything is connected. You can manage content from the panels below.',
             'stats' => [
-                ['label' => 'Notices', 'value' => $counts['notices']],
-                ['label' => 'Programs', 'value' => $counts['programs']],
-                ['label' => 'Achievements', 'value' => $counts['achievements']],
-                ['label' => 'Timeline Events', 'value' => $counts['history_events']],
-                ['label' => 'Staff Members', 'value' => $counts['staff_members']],
-                ['label' => 'Messages', 'value' => $counts['contact_messages']],
-                ['label' => 'Applications', 'value' => $counts['applications']],
+                ['label' => 'Notices', 'value' => $counts['notices'], 'section' => 'notices'],
+                ['label' => 'Programs', 'value' => $counts['programs'], 'section' => 'programs'],
+                ['label' => 'Achievements', 'value' => $counts['achievements'], 'section' => 'achievements'],
+                ['label' => 'Timeline Events', 'value' => $counts['history_events'], 'section' => 'history_events'],
+                ['label' => 'Staff Members', 'value' => $counts['staff_members'], 'section' => 'staff_members'],
+                ['label' => 'Messages', 'value' => $counts['contact_messages'], 'section' => 'contact_messages'],
+                ['label' => 'Applications', 'value' => $counts['applications'], 'section' => 'applications'],
             ],
         ];
     }

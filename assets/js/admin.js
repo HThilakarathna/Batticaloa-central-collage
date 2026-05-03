@@ -199,7 +199,7 @@ const ADMIN_TEMPLATE = `
         <aside class="admin-sidebar" :class="{ 'admin-sidebar--open': sidebarOpen }">
             <div class="d-flex justify-content-between align-items-center mb-4 d-lg-none">
                 <span class="muted-kicker">Navigation</span>
-                <button class="btn-icon" @click="sidebarOpen = false">
+                <button @click="sidebarOpen = false">
                     <i class="bi bi-x-lg" style="color: #0a1f44;"></i>
                 </button>
             </div>
@@ -261,7 +261,16 @@ const ADMIN_TEMPLATE = `
                 </div>
 
                 <div class="metric-grid">
-                    <article class="metric-card" v-for="stat in dashboard.stats" :key="stat.label">
+                    <article
+                        class="metric-card metric-card--clickable"
+                        v-for="stat in dashboard.stats"
+                        :key="stat.label"
+                        role="button"
+                        tabindex="0"
+                        @click="openDashboardStat(stat)"
+                        @keydown.enter.prevent="openDashboardStat(stat)"
+                        @keydown.space.prevent="openDashboardStat(stat)"
+                    >
                         <strong>{{ stat.value }}</strong>
                         <span>{{ stat.label }}</span>
                     </article>
@@ -563,6 +572,13 @@ createAdminApp({
         async loadDashboard() {
             const payload = await this.apiRequest(`${this.apiUrl}?action=dashboard`);
             this.dashboard = payload.data;
+        },
+        openDashboardStat(stat) {
+            if (!stat || !stat.section) {
+                return;
+            }
+
+            this.activateSection(stat.section);
         },
         async loadItems() {
             const payload = await this.apiRequest(`${this.apiUrl}?action=resource&name=${encodeURIComponent(this.section)}`);
