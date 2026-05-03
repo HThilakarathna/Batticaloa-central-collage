@@ -11,7 +11,7 @@ final class DataStore
     private array $resourceMap = [
         'notices' => [
             'table' => 'notices',
-            'order' => 'notice_date DESC, id DESC',
+            'order' => 'is_published DESC, sort_order ASC, notice_date DESC, id DESC',
             'fields' => ['type', 'title', 'content', 'notice_date', 'notice_time', 'link_url', 'is_published', 'sort_order'],
             'bool' => ['is_published'],
             'ints' => ['sort_order'],

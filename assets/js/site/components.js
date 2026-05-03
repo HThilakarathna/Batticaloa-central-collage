@@ -176,7 +176,7 @@ export const SiteFooter = {
                 <div class="site-footer__grid">
                     <div>
                         <a class="brand-lockup mb-3" :href="pageLink('home')">
-                            <img src="assets/images/logo.png" alt="School logo">
+                            <img class="footer-logo" src="assets/images/logo.png" alt="School logo">
                             <div>
                                 <div class="brand-title text-white">{{ site.name }}</div>
                                 <span class="brand-subtitle">{{ site.tagline }}</span>

@@ -133,6 +133,57 @@ const ADMIN_TEMPLATE = `
     </div>
 
     <div class="admin-shell" v-else>
+        <div class="logout-overlay" :class="{ 'is-active': selectedNotice !== null }" v-if="selectedNotice">
+            <div class="logout-modal text-start" style="width:min(760px, 100%);">
+                <div class="d-flex justify-content-between align-items-start gap-3 mb-3">
+                    <div>
+                        <div class="muted-kicker">Notice Details</div>
+                        <h2 class="mt-2 mb-0">{{ selectedNotice.title }}</h2>
+                    </div>
+                    <button class="btn-icon" @click="closeNoticeView">
+                        <i class="bi bi-x-lg" style="font-size: 1rem; color: inherit; margin-bottom: 0;"></i>
+                    </button>
+                </div>
+
+                <div class="d-flex flex-wrap gap-2 mb-4">
+                    <span class="pill-badge" :data-tone="selectedNotice.type">{{ selectedNotice.type }}</span>
+                    <span class="pill-badge" data-tone="Academic">{{ selectedNotice.is_published ? 'Published' : 'Draft' }}</span>
+                </div>
+
+                <div class="row g-3 mb-4">
+                    <div class="col-md-6">
+                        <div class="small text-uppercase text-slate-500 fw-bold mb-1">Notice Date</div>
+                        <div>{{ previewValue(selectedNotice.notice_date) }}</div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="small text-uppercase text-slate-500 fw-bold mb-1">Notice Time</div>
+                        <div>{{ selectedNotice.notice_time || 'School Hours' }}</div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="small text-uppercase text-slate-500 fw-bold mb-1">Sort Order</div>
+                        <div>{{ previewValue(selectedNotice.sort_order) }}</div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="small text-uppercase text-slate-500 fw-bold mb-1">Link</div>
+                        <a v-if="selectedNotice.link_url && selectedNotice.link_url !== '#'" :href="selectedNotice.link_url" target="_blank" rel="noopener">
+                            Open linked notice <i class="bi bi-box-arrow-up-right ms-1" style="font-size: inherit; color: inherit; margin-bottom: 0;"></i>
+                        </a>
+                        <span v-else>No linked document</span>
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <div class="small text-uppercase text-slate-500 fw-bold mb-1">Content</div>
+                    <div class="body-copy mb-0">{{ selectedNotice.content }}</div>
+                </div>
+
+                <div class="d-grid gap-2">
+                    <button class="btn-brand-alt" @click="startEdit(selectedNotice); closeNoticeView();">Edit Notice</button>
+                    <button class="btn-outline-brand" @click="closeNoticeView">Close</button>
+                </div>
+            </div>
+        </div>
+
         <header class="admin-mobile-head d-lg-none">
             <a class="brand-lockup" href="index.php">
                 <img src="assets/images/logo.png" alt="School logo">
@@ -261,6 +312,7 @@ const ADMIN_TEMPLATE = `
                                         </td>
                                         <td>
                                             <div class="table-actions">
+                                                <button v-if="section === 'notices'" class="btn-icon" @click="viewNotice(row)"><i class="bi bi-eye"></i></button>
                                                 <button class="btn-icon" @click="startEdit(row)"><i class="bi bi-pencil-square"></i></button>
                                                 <button class="btn-icon btn-danger-soft" @click="removeRow(row)"><i class="bi bi-trash"></i></button>
                                             </div>
@@ -296,7 +348,7 @@ const ADMIN_TEMPLATE = `
 
                                 <div v-else-if="field.type === 'checkbox'" class="form-check form-switch mt-2">
                                     <input v-model="editorModel[field.key]" class="form-check-input" type="checkbox">
-                                    <label class="form-check-label">Enabled</label>
+                                    <label class="form-check-label">{{ field.label }}</label>
                                 </div>
                             </div>
                         </div>
@@ -343,6 +395,7 @@ createAdminApp({
             },
             section: 'dashboard',
             items: [],
+            selectedNotice: null,
             editorMode: 'create',
             editorModel: {},
             menuItems: [
@@ -367,7 +420,7 @@ createAdminApp({
         currentSectionDescription() {
             const descriptions = {
                 dashboard: 'Review overall content volume and submission activity.',
-                notices: 'Create and publish school notices.',
+                notices: 'List, view, edit, publish, and remove school notices.',
                 programs: 'Manage academic programs displayed on the homepage.',
                 achievements: 'Update school achievement stories and featured highlights.',
                 history_events: 'Control the school timeline and legacy milestones.',
@@ -398,6 +451,10 @@ createAdminApp({
                 return this.section === 'contact_messages'
                     ? ['created_at', 'full_name', 'email', 'subject', 'status']
                     : ['created_at', 'student_name', 'grade_applying', 'parent_phone', 'status'];
+            }
+
+            if (this.section === 'notices') {
+                return ['type', 'title', 'notice_date', 'notice_time', 'is_published'];
             }
 
             return this.resourceFields.slice(0, 4).map((field) => field.key);
@@ -492,6 +549,7 @@ createAdminApp({
             this.section = section;
             this.sidebarOpen = false;
             this.flash = { ok: false, message: '' };
+            this.closeNoticeView();
             this.loadCurrentSection();
         },
         async loadCurrentSection() {
@@ -527,6 +585,12 @@ createAdminApp({
         startCreate() {
             this.editorMode = 'create';
             this.editorModel = this.emptyEditor();
+        },
+        viewNotice(row) {
+            this.selectedNotice = { ...row };
+        },
+        closeNoticeView() {
+            this.selectedNotice = null;
         },
         startEdit(row) {
             this.editorMode = 'edit';

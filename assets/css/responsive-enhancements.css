@@ -7,7 +7,6 @@
         scrollbar-width: none;
         -ms-overflow-style: none;
     }
-
     html::-webkit-scrollbar,
     body::-webkit-scrollbar {
         display: none;
@@ -59,6 +58,11 @@
         overflow: hidden;
     }
 
+    .footer-logo {
+        width: 38px;
+        height: 38px;
+    }
+
     .page-hero__content {
         width: 100% !important;
         max-width: 100% !important;
@@ -95,6 +99,11 @@
     .site-shell::before,
     .site-shell::after {
         display: none;
+    }
+
+    .footer-logo {
+        width: 36px;
+        height: 36px;
     }
 }
 
@@ -542,6 +551,11 @@ li {
         padding: 0 1rem;
     }
 
+    .admin-mobile-head .brand-lockup img {
+        width: 34px;
+        height: 34px;
+    }
+
     .admin-mobile-head .brand-title {
         font-size: 0.85rem;
         font-weight: 700;
@@ -784,6 +798,11 @@ li {
     .admin-sidebar {
         width: 280px;
         padding-right: max(1.75rem, calc(1.75rem + env(safe-area-inset-right)));
+    }
+
+    .admin-sidebar .brand-lockup img {
+        width: 42px;
+        height: 42px;
     }
 
     .admin-sidebar .brand-lockup {

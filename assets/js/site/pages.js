@@ -273,10 +273,19 @@ export const NoticesPage = {
                     <article class="notice-card" v-for="notice in notices" :key="'notice-' + notice.id">
                         <div class="d-flex flex-wrap justify-content-between gap-2 mb-3">
                             <span class="pill-badge" :data-tone="notice.type">{{ notice.type }}</span>
-                            <div class="tiny-copy">{{ formatDate(notice.notice_date) }} &middot; {{ notice.notice_time }}</div>
+                            <div class="tiny-copy">{{ formatDate(notice.notice_date) }} &middot; {{ notice.notice_time || 'School Hours' }}</div>
                         </div>
                         <h3>{{ notice.title }}</h3>
                         <p>{{ notice.content }}</p>
+                        <a
+                            v-if="notice.link_url && notice.link_url !== '#'"
+                            class="btn-outline-brand mt-3 d-inline-flex align-items-center"
+                            :href="notice.link_url"
+                            target="_blank"
+                            rel="noopener"
+                        >
+                            View Notice <i class="bi bi-box-arrow-up-right ms-1"></i>
+                        </a>
                     </article>
                 </div>
 
