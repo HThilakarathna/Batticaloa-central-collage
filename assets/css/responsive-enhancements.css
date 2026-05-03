@@ -58,9 +58,10 @@
         overflow: hidden;
     }
 
-    .footer-logo {
+    .site-footer .brand-lockup img.footer-logo {
         width: 50px;
         height: 50px;
+        padding: 0.15rem;
     }
 
     .page-hero__content {
@@ -101,9 +102,10 @@
         display: none;
     }
 
-    .footer-logo {
+    .site-footer .brand-lockup img.footer-logo {
         width: 50px;
         height: 50px;
+        padding: 0.15rem;
     }
 }
 
