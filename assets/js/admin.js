@@ -242,8 +242,8 @@ const ADMIN_TEMPLATE = `
                 </div>
 
                 <div class="table-actions" v-if="isResourceSection && !isReadOnlySection">
-                    <button class="btn-brand-alt" @click="startCreate">Add New</button>
-                    <button class="btn-outline-brand" @click="loadCurrentSection">Refresh</button>
+                    <button type="button" class="btn-brand-alt" @click="startCreate">Add New</button>
+                    <button type="button" class="btn-outline-brand" @click="loadCurrentSection">Refresh</button>
                 </div>
             </div>
 
@@ -333,7 +333,7 @@ const ADMIN_TEMPLATE = `
                         <div class="empty-state mt-3" v-if="items.length === 0">No records yet. Add the first one from the editor panel.</div>
                     </div>
 
-                    <div class="admin-card">
+                    <div class="admin-card" ref="editorPanel">
                         <span class="muted-kicker">{{ editorMode === 'create' ? 'Create' : 'Edit' }}</span>
                         <h2 class="mt-2 mb-3">{{ resourceLabel }}</h2>
 
@@ -601,6 +601,8 @@ createAdminApp({
         startCreate() {
             this.editorMode = 'create';
             this.editorModel = this.emptyEditor();
+            this.flash = { ok: true, message: `Creating a new ${this.resourceLabel.toLowerCase()}.` };
+            this.scrollToEditor();
         },
         viewNotice(row) {
             this.selectedNotice = { ...row };
@@ -622,6 +624,12 @@ createAdminApp({
             });
 
             this.editorModel.id = row.id;
+            this.scrollToEditor();
+        },
+        scrollToEditor() {
+            Vue.nextTick(() => {
+                this.$refs.editorPanel?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
         },
         serializeEditor() {
             const payload = {};
