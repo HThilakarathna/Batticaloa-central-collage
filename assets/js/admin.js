@@ -252,7 +252,7 @@ const ADMIN_TEMPLATE = `
             </div>
 
             <section v-if="section === 'dashboard'" class="d-grid gap-4">
-                <div class="welcome-greeting reveal-on-scroll">
+                <div class="welcome-greeting">
                     <div class="welcome-greeting__icon">👋</div>
                     <div>
                         <h2>Welcome back, {{ admin?.name }}!</h2>
