@@ -256,14 +256,14 @@ export const NoticesPage = {
             <div class="container d-grid gap-4">
                 <div class="section-card">
                     <div class="row g-3 align-items-center">
-                        <div class="col-lg-8">
+                        <div class="col-lg-6">
                             <div class="section-head d-block mb-0">
                                 <span class="muted-kicker">Search Notices</span>
                                 <h2>Find Recent Announcements</h2>
                                 <p>Search by title, content, or notice type.</p>
                             </div>
                         </div>
-                        <div class="col-lg-4">
+                        <div class="col-lg-6">
                             <input :value="query" @input="$emit('update:query', $event.target.value)" class="form-control" type="text" placeholder="Search notices...">
                         </div>
                     </div>

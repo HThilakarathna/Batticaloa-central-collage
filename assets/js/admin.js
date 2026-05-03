@@ -5,7 +5,12 @@ const RESOURCE_CONFIGS = {
     notices: {
         label: 'Notices',
         fields: [
-            { key: 'type', label: 'Type', type: 'text' },
+            {
+                key: 'type',
+                label: 'Type',
+                type: 'select',
+                options: ['Urgent', 'Event', 'Important', 'News', 'Academic']
+            },
             { key: 'title', label: 'Title', type: 'text' },
             { key: 'content', label: 'Content', type: 'textarea' },
             { key: 'notice_date', label: 'Date', type: 'date' },
@@ -348,6 +353,14 @@ const ADMIN_TEMPLATE = `
                                     :type="field.type"
                                 >
 
+                                <select
+                                    v-else-if="field.type === 'select'"
+                                    v-model="editorModel[field.key]"
+                                    class="form-select"
+                                >
+                                    <option v-for="option in field.options || []" :key="option" :value="option">{{ option }}</option>
+                                </select>
+
                                 <textarea
                                     v-else-if="field.type === 'textarea' || field.type === 'list'"
                                     v-model="editorModel[field.key]"
@@ -594,7 +607,13 @@ createAdminApp({
         emptyEditor() {
             const model = {};
             this.resourceFields.forEach((field) => {
-                model[field.key] = field.type === 'checkbox' ? false : '';
+                if (field.type === 'checkbox') {
+                    model[field.key] = false;
+                } else if (field.type === 'select') {
+                    model[field.key] = field.options?.[0] || '';
+                } else {
+                    model[field.key] = '';
+                }
             });
             return model;
         },
