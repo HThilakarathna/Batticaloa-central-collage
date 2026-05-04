@@ -597,10 +597,15 @@ createAdminApp({
             this.activateSection(stat.section);
         },
         async loadItems() {
-            const payload = await this.apiRequest(`${this.apiUrl}?action=resource&name=${encodeURIComponent(this.section)}`);
-            this.items = payload.data;
-            if (!this.isReadOnlySection) {
-                this.resetEditor();
+            try {
+                const payload = await this.apiRequest(`${this.apiUrl}?action=resource&name=${encodeURIComponent(this.section)}`);
+                this.items = Array.isArray(payload.data) ? payload.data : [];
+                if (!this.isReadOnlySection) {
+                    this.resetEditor();
+                }
+            } catch (error) {
+                this.items = [];
+                throw error;
             }
         },
         resetEditor() {
@@ -673,6 +678,8 @@ createAdminApp({
         async saveResource() {
             try {
                 const body = JSON.stringify(this.serializeEditor());
+                let message = '';
+                
                 if (this.editorMode === 'create') {
                     await this.apiRequest(`${this.apiUrl}?action=resource&name=${encodeURIComponent(this.section)}`, {
                         method: 'POST',
@@ -681,7 +688,7 @@ createAdminApp({
                         },
                         body
                     });
-                    this.flash = { ok: true, message: `${this.resourceLabel} record created.` };
+                    message = `${this.resourceLabel} record created.`;
                 } else {
                     await this.apiRequest(`${this.apiUrl}?action=resource&name=${encodeURIComponent(this.section)}&id=${this.editorModel.id}`, {
                         method: 'PUT',
@@ -690,10 +697,11 @@ createAdminApp({
                         },
                         body
                     });
-                    this.flash = { ok: true, message: `${this.resourceLabel} record updated.` };
+                    message = `${this.resourceLabel} record updated.`;
                 }
 
                 await this.loadItems();
+                this.flash = { ok: true, message };
             } catch (error) {
                 this.flash = { ok: false, message: error.message || 'Unable to save record.' };
             }
@@ -708,8 +716,8 @@ createAdminApp({
                 await this.apiRequest(`${this.apiUrl}?action=resource&name=${encodeURIComponent(this.section)}&id=${row.id}`, {
                     method: 'DELETE'
                 });
-                this.flash = { ok: true, message: 'Record deleted successfully.' };
                 await this.loadItems();
+                this.flash = { ok: true, message: 'Record deleted successfully.' };
             } catch (error) {
                 this.flash = { ok: false, message: error.message || 'Unable to delete record.' };
             }
