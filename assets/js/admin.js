@@ -486,6 +486,7 @@ createAdminApp({
         async apiRequest(url, options = {}) {
             const response = await fetch(url, {
                 credentials: 'same-origin',
+                cache: 'no-store',
                 ...options
             });
             const payload = await response.json();
