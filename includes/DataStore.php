@@ -144,12 +144,12 @@ final class DataStore
     {
         if (!$this->adminAvailable()) {
             return [
-                'message' => 'The public site will use seeded content until MySQL is configured.',
+                'message' => 'MySQL is not configured yet. Connect the database to manage content.',
                 'stats' => [
-                    ['label' => 'Notices', 'value' => count($this->fallbackResources()['notices']), 'section' => 'notices'],
-                    ['label' => 'Programs', 'value' => count($this->fallbackResources()['programs']), 'section' => 'programs'],
-                    ['label' => 'Achievements', 'value' => count($this->fallbackResources()['achievements']), 'section' => 'achievements'],
-                    ['label' => 'Staff Members', 'value' => count($this->fallbackResources()['staff_members']), 'section' => 'staff_members'],
+                    ['label' => 'Notices', 'value' => 0, 'section' => 'notices'],
+                    ['label' => 'Programs', 'value' => 0, 'section' => 'programs'],
+                    ['label' => 'Achievements', 'value' => 0, 'section' => 'achievements'],
+                    ['label' => 'Staff Members', 'value' => 0, 'section' => 'staff_members'],
                 ],
             ];
         }
@@ -213,8 +213,7 @@ final class DataStore
     public function getSetting(string $key): array
     {
         if (!$this->adminAvailable()) {
-            $settings = $this->fallbackSettings();
-            return $settings[$key] ?? [];
+            return [];
         }
 
         $statement = $this->pdo->prepare('SELECT setting_value FROM site_settings WHERE setting_key = :key LIMIT 1');
@@ -269,8 +268,7 @@ final class DataStore
         }
 
         if (!$this->adminAvailable()) {
-            $resources = $this->fallbackResources();
-            return $resources[$resource] ?? [];
+            return [];
         }
 
         $config = $this->resourceMap[$resource];
@@ -526,7 +524,6 @@ final class DataStore
             return;
         }
 
-        $settingsCount = (int) $this->pdo->query('SELECT COUNT(*) FROM site_settings')->fetchColumn();
         $adminsCount = (int) $this->pdo->query('SELECT COUNT(*) FROM admins')->fetchColumn();
 
         if ($adminsCount === 0) {
@@ -540,20 +537,6 @@ final class DataStore
                 'password_hash' => '$2y$10$tHfTJjgylLiEfGUEI1QV4eMpcrcxRr7dJ4xDnPzJVoRgjfLdeUT96',
             ]);
         }
-
-        if ($settingsCount > 0) {
-            return;
-        }
-
-        foreach ($this->fallbackSettings() as $key => $value) {
-            $this->saveSetting($key, $value);
-        }
-
-        foreach ($this->fallbackResources() as $resource => $records) {
-            foreach ($records as $record) {
-                $this->createResource($resource, $record);
-            }
-        }
     }
 
     private function requireDatabase(): void
@@ -563,348 +546,4 @@ final class DataStore
         }
     }
 
-    private function fallbackSettings(): array
-    {
-        return [
-            'site' => [
-                'name' => 'BT/BC Oddamavadi Central College',
-                'tagline' => 'National School',
-                'badge' => 'A Century of Educational Excellence',
-                'address' => 'Colombo Road, Oddamavadi, Batticaloa, Sri Lanka',
-                'postal_code' => '30420',
-                'phone' => '(+94) 0652257243',
-                'email' => 'info@occ.edu.lk',
-                'secondary_email' => 'principal@occ.edu.lk',
-                'map_link' => 'https://www.google.com/maps?q=Oddamavadi+Central+College,+Colombo+Road,+Oddamavadi,+Batticaloa,+Sri+Lanka',
-                'working_hours' => [
-                    'Monday - Thursday: 7:30 AM - 2:00 PM',
-                    'Friday: 7:30 AM - 11:30 AM',
-                ],
-                'social_links' => [
-                    ['label' => 'Facebook', 'url' => 'https://www.facebook.com'],
-                    ['label' => 'Instagram', 'url' => 'https://www.instagram.com'],
-                    ['label' => 'YouTube', 'url' => 'https://www.youtube.com'],
-                ],
-                'footer_note' => 'BT/BC Oddamavadi Central College — A National School committed to academic excellence, character, and community leadership.',
-                'footer_credit' => 'Serving the Oddamavadi community since 1917.',
-            ],
-            'home' => [
-                'hero_title' => 'Empowering Education for the Future',
-                'hero_text' => 'A modern, student-centered national school experience grounded in tradition, achievement, and community leadership.',
-                'hero_badge' => 'Welcome to Excellence',
-                'welcome_title' => 'A School Built on Legacy and Progress',
-                'welcome_paragraphs' => [
-                    'BT/BC Oddamavadi Central College has served generations of learners with a strong commitment to academic success, discipline, and opportunity.',
-                    'Today, the school continues that legacy with a modern learning environment, broad extracurricular exposure, and a clear admissions journey for new families.',
-                ],
-                'welcome_stats' => [
-                    ['value' => '2,500+', 'label' => 'Students'],
-                    ['value' => '150+', 'label' => 'Teachers'],
-                    ['value' => '500+', 'label' => 'Awards'],
-                    ['value' => '109+', 'label' => 'Years'],
-                ],
-                'admission_title' => 'Admissions Open for 2026',
-                'admission_text' => 'Apply online, upload documents, and let our admissions team review your request quickly.',
-            ],
-            'about' => [
-                'hero_title' => 'About Us',
-                'hero_text' => 'Discover our story, purpose, and the people guiding our students forward.',
-                'welcome_title' => 'Welcome to BT/BC Oddamavadi Central College',
-                'welcome_paragraphs' => [
-                    'BT/BC Oddamavadi Central College stands as one of the most respected educational institutions in the region, with a history rooted in service and academic ambition.',
-                    'Our school nurtures intellectual curiosity, moral strength, and practical readiness so students can thrive in school and beyond.',
-                    'We believe in balancing examination performance, character formation, community values, and leadership development.',
-                ],
-                'mission' => [
-                    'title' => 'Our Mission',
-                    'text' => 'To provide high-quality education that nurtures knowledge, confidence, integrity, and social responsibility in every learner.',
-                ],
-                'vision' => [
-                    'title' => 'Our Vision',
-                    'text' => 'To be a leading school in Sri Lanka known for excellence, innovation, and meaningful service to society.',
-                ],
-                'messages' => [
-                    [
-                        'title' => "Principal's Message",
-                        'name' => 'Mr. Haleem',
-                        'role' => 'Principal',
-                        'text' => 'We remain committed to providing a safe, ambitious, and inspiring environment where each student can discover their strengths and grow with confidence.',
-                    ],
-                    [
-                        'title' => 'Vice Principal',
-                        'name' => 'Mr. Azmy',
-                        'role' => 'Deputy Principal',
-                        'text' => 'Our work focuses on discipline, academic consistency, and the kind of support system that helps children and families feel part of one school community.',
-                    ],
-                ],
-                'core_values' => [
-                    ['title' => 'Excellence', 'text' => 'Pursuing high standards in learning, leadership, and service.'],
-                    ['title' => 'Integrity', 'text' => 'Acting with honesty, fairness, and accountability.'],
-                    ['title' => 'Innovation', 'text' => 'Welcoming modern ideas, methods, and technologies.'],
-                    ['title' => 'Respect', 'text' => 'Valuing every student, parent, teacher, and community member.'],
-                ],
-            ],
-            'notices' => [
-                'hero_title' => 'Notice Board',
-                'hero_text' => 'Stay informed with school announcements, events, and important academic updates.',
-            ],
-            'history' => [
-                'hero_title' => 'Our History',
-                'hero_text' => '109 years of educational excellence, progress, and service.',
-                'intro_title' => 'A Historic Landmark of Learning',
-                'intro_paragraphs' => [
-                    'Founded in 1917, BT/BC Oddamavadi Central College has grown from a local institution into a respected national school.',
-                    'Across generations, the school has remained a powerful educational pillar for the wider Oddamavadi community.',
-                ],
-                'intro_cards' => [
-                    ['title' => 'Academic Excellence', 'text' => 'Strong pathways from secondary education to advanced level success.'],
-                    ['title' => 'Community Pillar', 'text' => 'A trusted institution shaping the social and educational life of the area.'],
-                    ['title' => 'Generational Legacy', 'text' => 'Families across generations continue to call this school their own.'],
-                ],
-                'community_title' => 'Role in the Community',
-                'community_paragraphs' => [
-                    'The school contributes far beyond classroom teaching through sports meets, cultural programs, awareness campaigns, and youth development activities.',
-                    'Its alumni network includes teachers, professionals, officers, and community leaders who continue to serve society with distinction.',
-                ],
-            ],
-            'achievements' => [
-                'hero_title' => 'Our Achievements',
-                'hero_text' => 'Celebrating excellence in academics, sports, arts, and school leadership.',
-                'recognitions' => [
-                    ['title' => 'Presidential Award for Excellence', 'text' => 'Recognition for outstanding contribution to education.', 'theme' => 'gold'],
-                    ['title' => 'Best National School - Eastern Province', 'text' => 'Awarded for school-wide educational performance.', 'theme' => 'blue'],
-                    ['title' => 'Environmental Excellence Award', 'text' => 'Honoured for green campus and sustainability programs.', 'theme' => 'green'],
-                    ['title' => 'Community Service Excellence', 'text' => 'Recognised for impact beyond the classroom.', 'theme' => 'purple'],
-                ],
-                'stats' => [
-                    ['value' => '500+', 'label' => 'Total Awards'],
-                    ['value' => '95%', 'label' => 'Success Rate'],
-                    ['value' => '50+', 'label' => 'Championships'],
-                    ['value' => '200+', 'label' => 'Gold Medals'],
-                ],
-            ],
-            'staff' => [
-                'hero_title' => 'Staff & Students',
-                'hero_text' => 'Dedicated educators and ambitious learners growing together.',
-                'staff_intro' => 'Our experienced teaching team supports academic performance, mentorship, discipline, and student wellbeing across every grade level.',
-                'student_life_intro' => 'School life is built around leadership, teamwork, creativity, and academic enrichment.',
-                'student_life_items' => [
-                    ['title' => 'Student Council', 'text' => 'Leadership opportunities for student voice and school events.'],
-                    ['title' => 'Academic Clubs', 'text' => 'Science, mathematics, literary, and innovation clubs for deeper learning.'],
-                    ['title' => 'Sports Teams', 'text' => 'Athletics, cricket, football, volleyball, and more at district level and beyond.'],
-                    ['title' => 'Cultural Activities', 'text' => 'Drama, music, dance, and arts programs that celebrate talent and identity.'],
-                ],
-                'featured_students' => [
-                    ['name' => 'Aisha Mohamed', 'stream' => 'Bio-Science', 'achievement' => 'Island 3rd - A/L Examination 2025'],
-                    ['name' => 'Rajesh Kumar', 'stream' => 'General Studies', 'achievement' => 'District 1st - O/L Examination 2025'],
-                    ['name' => 'Tharshika Selvam', 'stream' => 'Sports', 'achievement' => 'Provincial Athletics Champion'],
-                    ['name' => 'Fahad Rizwan', 'stream' => 'Physical Science', 'achievement' => 'National Science Olympiad Gold Medal'],
-                ],
-                'student_body_stats' => [
-                    ['value' => '2,500+', 'label' => 'Total Students'],
-                    ['value' => '150+', 'label' => 'Teaching Staff'],
-                    ['value' => '45', 'label' => 'Classes'],
-                    ['value' => '25+', 'label' => 'Clubs & Societies'],
-                ],
-                'join_title' => 'Join Our Community',
-                'join_text' => 'Whether you are a prospective family, an alumnus, or an educator, there is a place for you in our growing school community.',
-            ],
-            'contact' => [
-                'hero_title' => 'Contact Us',
-                'hero_text' => 'Reach our team for admissions, inquiries, parent communication, and school visits.',
-                'admissions_title' => 'Admissions Office',
-                'admissions_text' => 'For admission inquiries and application procedures, please contact our admissions office during working hours or submit your online application.',
-                'map_title' => 'Find Us',
-                'map_text' => 'Visit our campus located in the heart of Oddamavadi.',
-                'legacy_title' => 'Our Legacy Continues',
-                'legacy_text' => 'With thousands of alumni and a strong educational tradition, we continue to serve the region with pride and purpose.',
-                'legacy_stats' => [
-                    ['value' => '109+', 'label' => 'Years of Excellence'],
-                    ['value' => '10,000+', 'label' => 'Alumni Worldwide'],
-                    ['value' => '500+', 'label' => 'Awards & Recognitions'],
-                ],
-            ],
-            'apply' => [
-                'hero_title' => 'Admission Application',
-                'hero_text' => 'Submit student details, upload supporting documents, and track the application from one guided flow.',
-                'intro_text' => 'This admission form collects student, parent, health, academic, and document information for review by the school administration.',
-            ],
-        ];
-    }
-
-    private function fallbackResources(): array
-    {
-        return [
-            'notices' => [
-                [
-                    'type' => 'Urgent',
-                    'title' => '2026 Advanced Level Examination Schedule Released',
-                    'content' => 'All A/L students are requested to review their final examination timetable and weekend revision class plan.',
-                    'notice_date' => '2026-03-25',
-                    'notice_time' => '10:00 AM',
-                    'link_url' => '#',
-                    'is_published' => true,
-                    'sort_order' => 1,
-                ],
-                [
-                    'type' => 'Event',
-                    'title' => 'Annual Sports Meet Registration Open',
-                    'content' => 'Students from Grades 6 to 13 are invited to register for track, field, and house events before the deadline.',
-                    'notice_date' => '2026-03-20',
-                    'notice_time' => '02:30 PM',
-                    'link_url' => '#',
-                    'is_published' => true,
-                    'sort_order' => 2,
-                ],
-                [
-                    'type' => 'Important',
-                    'title' => 'Parent-Teacher Meeting for First Term',
-                    'content' => 'Parents are invited to meet class teachers and discuss academic progress, attendance, and term plans.',
-                    'notice_date' => '2026-03-15',
-                    'notice_time' => '08:00 AM',
-                    'link_url' => '#',
-                    'is_published' => true,
-                    'sort_order' => 3,
-                ],
-                [
-                    'type' => 'News',
-                    'title' => 'Science Exhibition Project Proposals Open',
-                    'content' => 'Students can now submit concepts for the annual science exhibition and innovation showcase.',
-                    'notice_date' => '2026-03-12',
-                    'notice_time' => '11:00 AM',
-                    'link_url' => '#',
-                    'is_published' => true,
-                    'sort_order' => 4,
-                ],
-                [
-                    'type' => 'Academic',
-                    'title' => 'School Fee Payment Deadline Extended',
-                    'content' => 'The deadline for second term school fee payment has been extended for parent convenience.',
-                    'notice_date' => '2026-03-05',
-                    'notice_time' => '02:00 PM',
-                    'link_url' => '#',
-                    'is_published' => true,
-                    'sort_order' => 5,
-                ],
-            ],
-            'programs' => [
-                [
-                    'icon' => 'bi bi-book-half',
-                    'title' => 'Junior Secondary',
-                    'subtitle' => 'Grades 6 to 9',
-                    'description' => 'A strong academic foundation with language, science, mathematics, and character development.',
-                    'sort_order' => 1,
-                ],
-                [
-                    'icon' => 'bi bi-mortarboard-fill',
-                    'title' => 'Ordinary Level',
-                    'subtitle' => 'Grades 10 and 11',
-                    'description' => 'Focused preparation for O/L success with subject mastery and guided revision support.',
-                    'sort_order' => 2,
-                ],
-                [
-                    'icon' => 'bi bi-stars',
-                    'title' => 'Advanced Level Streams',
-                    'subtitle' => 'Grades 12 and 13',
-                    'description' => 'Science, commerce, arts, and technology pathways designed for university and career readiness.',
-                    'sort_order' => 3,
-                ],
-            ],
-            'achievements' => [
-                [
-                    'icon' => 'bi bi-trophy-fill',
-                    'year_label' => '2025',
-                    'title' => 'District Athletics Champions',
-                    'category' => 'Sports',
-                    'description' => 'Won the district athletics championship with standout relay and field event performances.',
-                    'overview' => 'Our athletics squad captured the district title for a third consecutive year through discipline, teamwork, and outstanding individual performances.',
-                    'key_achievements' => ['15 gold medals', '100m district record', 'Relay first place', 'Team spirit award'],
-                    'outstanding_students' => ['Mohamed Rishan', 'Aathif Ahmed', 'Fathima Nasrin'],
-                    'featured' => true,
-                    'sort_order' => 1,
-                ],
-                [
-                    'icon' => 'bi bi-graph-up-arrow',
-                    'year_label' => '2025',
-                    'title' => '95% A/L Pass Rate',
-                    'category' => 'Academic',
-                    'description' => 'Outstanding Advanced Level results with a high university admission rate.',
-                    'overview' => 'The 2025 Advanced Level cohort delivered one of the strongest performances in recent school history.',
-                    'key_achievements' => ['95% pass rate', '28 university selections', 'Top district rankings'],
-                    'outstanding_students' => ['Aisha Mohamed', 'Fahad Rizwan'],
-                    'featured' => true,
-                    'sort_order' => 2,
-                ],
-                [
-                    'icon' => 'bi bi-award-fill',
-                    'year_label' => '2025',
-                    'title' => 'Best Performing School Award',
-                    'category' => 'Academic',
-                    'description' => 'Recognized for overall school performance and educational leadership.',
-                    'overview' => 'The school was recognized provincially for its balanced results across teaching, student outcomes, and community impact.',
-                    'key_achievements' => ['Provincial recognition', 'Strong overall academic profile'],
-                    'outstanding_students' => [],
-                    'featured' => true,
-                    'sort_order' => 3,
-                ],
-                [
-                    'icon' => 'bi bi-palette-fill',
-                    'year_label' => '2025',
-                    'title' => 'National Cultural Festival Excellence',
-                    'category' => 'Culture',
-                    'description' => 'Earned top honors in performing arts and school cultural presentation.',
-                    'overview' => 'Students showcased dance, music, and drama with creativity and cultural pride.',
-                    'key_achievements' => ['Best drama score', 'Traditional dance first place'],
-                    'outstanding_students' => ['Tharshika Selvam'],
-                    'featured' => true,
-                    'sort_order' => 4,
-                ],
-                [
-                    'icon' => 'bi bi-lightbulb-fill',
-                    'year_label' => '2024',
-                    'title' => 'Science Olympiad Provincial Champions',
-                    'category' => 'Academic',
-                    'description' => 'Gold medal performances in science competitions.',
-                    'overview' => 'Students secured top provincial placements in physics and chemistry olympiads.',
-                    'key_achievements' => ['Physics gold medal', 'Chemistry gold medal'],
-                    'outstanding_students' => ['Fahad Rizwan'],
-                    'featured' => false,
-                    'sort_order' => 5,
-                ],
-                [
-                    'icon' => 'bi bi-dribbble',
-                    'year_label' => '2024',
-                    'title' => 'Provincial Cricket Winners',
-                    'category' => 'Sports',
-                    'description' => 'Under-19 boys team lifted the provincial championship trophy.',
-                    'overview' => 'The cricket team delivered a dominant tournament run with strong bowling and disciplined fielding.',
-                    'key_achievements' => ['Under-19 winners', 'Best bowler of the tournament'],
-                    'outstanding_students' => ['Rajesh Kumar'],
-                    'featured' => false,
-                    'sort_order' => 6,
-                ],
-            ],
-            'history_events' => [
-                ['period_label' => '1917', 'title' => 'Foundation', 'description' => 'The school was established to serve the educational needs of the local community.', 'icon' => 'bi bi-house-heart-fill', 'sort_order' => 1],
-                ['period_label' => '1930s-40s', 'title' => 'Early Growth', 'description' => 'Facilities and curriculum expanded as the school strengthened its regional presence.', 'icon' => 'bi bi-book-fill', 'sort_order' => 2],
-                ['period_label' => '1950s-60s', 'title' => 'Modern Development', 'description' => 'Science education and new teaching practices were introduced more broadly.', 'icon' => 'bi bi-flask-fill', 'sort_order' => 3],
-                ['period_label' => '1970', 'title' => 'National School Status', 'description' => 'The school was elevated in recognition of its educational contribution.', 'icon' => 'bi bi-patch-check-fill', 'sort_order' => 4],
-                ['period_label' => '1985', 'title' => 'New School Building', 'description' => 'A major facilities expansion supported a growing student population.', 'icon' => 'bi bi-building-fill', 'sort_order' => 5],
-                ['period_label' => '1992', 'title' => 'Computer Education', 'description' => 'Technology education began to prepare students for the digital era.', 'icon' => 'bi bi-pc-display-horizontal', 'sort_order' => 6],
-                ['period_label' => '2024', 'title' => 'STEM Excellence Center', 'description' => 'Advanced laboratories and STEM-focused infrastructure were introduced.', 'icon' => 'bi bi-rocket-takeoff-fill', 'sort_order' => 7],
-                ['period_label' => '2026', 'title' => '109 Years Anniversary', 'description' => 'The school continues its legacy as a pillar of regional progress.', 'icon' => 'bi bi-stars', 'sort_order' => 8],
-            ],
-            'staff_members' => [
-                ['name' => 'Mr. A. Rahman', 'role' => 'Principal', 'subject' => 'Administration', 'experience' => '25+ years', 'emoji' => 'bi bi-person-badge-fill', 'group_name' => 'Leadership', 'sort_order' => 1],
-                ['name' => 'Mrs. S. Thivya', 'role' => 'Vice Principal', 'subject' => 'Mathematics', 'experience' => '20+ years', 'emoji' => 'bi bi-person-workspace', 'group_name' => 'Leadership', 'sort_order' => 2],
-                ['name' => 'Mr. K. Kumar', 'role' => 'Senior Teacher', 'subject' => 'Physics', 'experience' => '18+ years', 'emoji' => 'bi bi-lightning-charge-fill', 'group_name' => 'Academic Staff', 'sort_order' => 3],
-                ['name' => 'Mrs. F. Nazira', 'role' => 'Senior Teacher', 'subject' => 'Chemistry', 'experience' => '15+ years', 'emoji' => 'bi bi-droplet-half', 'group_name' => 'Academic Staff', 'sort_order' => 4],
-                ['name' => 'Mr. R. Selvam', 'role' => 'Teacher', 'subject' => 'Biology', 'experience' => '12+ years', 'emoji' => 'bi bi-flower1', 'group_name' => 'Academic Staff', 'sort_order' => 5],
-                ['name' => 'Mrs. M. Fathima', 'role' => 'Teacher', 'subject' => 'English Literature', 'experience' => '14+ years', 'emoji' => 'bi bi-journal-richtext', 'group_name' => 'Academic Staff', 'sort_order' => 6],
-                ['name' => 'Mr. S. Shankar', 'role' => 'Teacher', 'subject' => 'History', 'experience' => '10+ years', 'emoji' => 'bi bi-hourglass-split', 'group_name' => 'Academic Staff', 'sort_order' => 7],
-                ['name' => 'Mrs. L. Priya', 'role' => 'Teacher', 'subject' => 'Economics', 'experience' => '11+ years', 'emoji' => 'bi bi-cash-stack', 'group_name' => 'Academic Staff', 'sort_order' => 8],
-                ['name' => 'Mr. A. Farook', 'role' => 'Teacher', 'subject' => 'Information Technology', 'experience' => '8+ years', 'emoji' => 'bi bi-code-slash', 'group_name' => 'Academic Staff', 'sort_order' => 9],
-            ],
-        ];
-    }
 }
