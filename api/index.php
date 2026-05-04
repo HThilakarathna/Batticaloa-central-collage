@@ -99,7 +99,7 @@ try {
 
             if ($method === 'DELETE' && $id !== null) {
                 $store->deleteResource($name, $id);
-                json_response(['ok' => true, 'message' => 'Deleted successfully.']);
+                json_response(['ok' => true, 'data' => ['id' => $id], 'message' => 'Deleted successfully.']);
             }
 
             json_response(['ok' => false, 'message' => 'Method not allowed.'], 405);

@@ -101,7 +101,7 @@ function render_admin_page(): void
     <!-- Defer external scripts for better performance -->
     <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script defer src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
-    <script defer src="assets/js/admin.js"></script>
+    <script defer src="assets/js/admin.js?v=<?= filemtime(ROOT_PATH . '/assets/js/admin.js') ?>"></script>
 </body>
 </html>
     <?php

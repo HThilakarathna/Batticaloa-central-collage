@@ -714,11 +714,21 @@ createAdminApp({
             }
 
             try {
-                await this.apiRequest(`${this.apiUrl}?action=resource&name=${encodeURIComponent(this.section)}&id=${row.id}`, {
+                const payload = await this.apiRequest(`${this.apiUrl}?action=resource&name=${encodeURIComponent(this.section)}&id=${row.id}`, {
                     method: 'DELETE'
                 });
-                await this.loadItems();
-                this.flash = { ok: true, message: 'Record deleted successfully.' };
+
+                // Optimistically remove the item from the current list so UI updates immediately
+                this.items = this.items.filter((r) => r.id !== row.id);
+
+                // Refresh to ensure server-side state sync
+                try {
+                    await this.loadItems();
+                } catch (refreshError) {
+                    // ignore refresh error but keep optimistic removal
+                }
+
+                this.flash = { ok: true, message: payload.message || 'Record deleted successfully.' };
             } catch (error) {
                 this.flash = { ok: false, message: error.message || 'Unable to delete record.' };
             }
