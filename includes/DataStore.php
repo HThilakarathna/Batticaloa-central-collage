@@ -79,6 +79,7 @@ final class DataStore
 
             $this->dbMessage = 'MySQL connected successfully.';
             $this->ensureSeeded();
+            $this->purgeLegacySeedData();
         } catch (Throwable $exception) {
             $this->pdo = null;
             $this->dbMessage = 'MySQL connection failed: ' . $exception->getMessage();
@@ -536,6 +537,76 @@ final class DataStore
                 'email' => 'admin@oddamavadi.lk',
                 'password_hash' => '$2y$10$tHfTJjgylLiEfGUEI1QV4eMpcrcxRr7dJ4xDnPzJVoRgjfLdeUT96',
             ]);
+        }
+    }
+
+    private function purgeLegacySeedData(): void
+    {
+        if (!$this->adminAvailable()) {
+            return;
+        }
+
+        $legacyTitles = [
+            'notices' => [
+                '2026 Advanced Level Examination Schedule Released',
+                'Annual Sports Meet Registration Open',
+                'Parent-Teacher Meeting for First Term',
+                'Science Exhibition Project Proposals Open',
+                'School Fee Payment Deadline Extended',
+            ],
+            'programs' => [
+                'Junior Secondary',
+                'Ordinary Level',
+                'Advanced Level Streams',
+            ],
+            'achievements' => [
+                'District Athletics Champions',
+                '95% A/L Pass Rate',
+                'Best Performing School Award',
+                'National Cultural Festival Excellence',
+                'Science Olympiad Provincial Champions',
+                'Provincial Cricket Winners',
+            ],
+            'history_events' => [
+                'Foundation',
+                'Early Growth',
+                'Modern Development',
+                'National School Status',
+                'New School Building',
+                'Computer Education',
+                'STEM Excellence Center',
+                '109 Years Anniversary',
+            ],
+            'staff_members' => [
+                'Mr. A. Rahman',
+                'Mrs. S. Thivya',
+                'Mr. K. Kumar',
+                'Mrs. F. Nazira',
+                'Mr. R. Selvam',
+                'Mrs. M. Fathima',
+                'Mr. S. Shankar',
+                'Mrs. L. Priya',
+                'Mr. A. Farook',
+            ],
+        ];
+
+        $tableColumns = [
+            'notices' => 'title',
+            'programs' => 'title',
+            'achievements' => 'title',
+            'history_events' => 'title',
+            'staff_members' => 'name',
+        ];
+
+        foreach ($legacyTitles as $table => $titles) {
+            if ($titles === []) {
+                continue;
+            }
+
+            $placeholders = implode(', ', array_fill(0, count($titles), '?'));
+            $column = $tableColumns[$table] ?? 'title';
+            $statement = $this->pdo->prepare("DELETE FROM {$table} WHERE {$column} IN ({$placeholders})");
+            $statement->execute(array_values($titles));
         }
     }
 
