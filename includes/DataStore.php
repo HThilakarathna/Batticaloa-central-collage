@@ -326,6 +326,10 @@ final class DataStore
         $config = $this->resourceConfig($resource);
         $statement = $this->pdo->prepare("DELETE FROM {$config['table']} WHERE id = :id");
         $statement->execute(['id' => $id]);
+        
+        if ($statement->rowCount() === 0) {
+            throw new RuntimeException('Record not found or already deleted.');
+        }
     }
 
     public function saveContactMessage(array $payload): array
