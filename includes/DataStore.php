@@ -317,6 +317,10 @@ final class DataStore
         );
         $statement->execute($record);
 
+        if ($statement->rowCount() === 0) {
+            throw new RuntimeException('Record not found or no changes made.');
+        }
+
         return $this->findResource($resource, $id);
     }
 
