@@ -4,6 +4,91 @@ declare(strict_types=1);
 
 function render_public_page(string $page): void
 {
+    if ($page === 'home') {
+        ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Payment pending home screen.">
+    <title>Payment Pending</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial, sans-serif;
+        }
+
+        body{
+            overflow:hidden;
+            background:#111;
+            height:100vh;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            color:white;
+            position:relative;
+        }
+
+        h1{
+            font-size:3rem;
+            text-align:center;
+            z-index:10;
+            padding:20px 40px;
+            background:rgba(255,255,255,0.08);
+            border-radius:20px;
+            backdrop-filter:blur(10px);
+        }
+
+        .money{
+            position:absolute;
+            top:-100px;
+            font-size:40px;
+            animation:fall linear infinite;
+            opacity:0.8;
+            user-select:none;
+            pointer-events:none;
+        }
+
+        @keyframes fall{
+            from{
+                transform:translateY(-100px) rotate(0deg);
+            }
+            to{
+                transform:translateY(110vh) rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+
+<h1>Developer still waiting for payment 😄</h1>
+
+<script>
+    const emojis = ["💸","💵","💰","🪙"];
+
+    for(let i = 0; i < 40; i++){
+        const money = document.createElement("div");
+        money.classList.add("money");
+
+        money.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
+
+        money.style.left = Math.random() * 100 + "vw";
+        money.style.animationDuration = (3 + Math.random() * 5) + "s";
+        money.style.fontSize = (25 + Math.random() * 40) + "px";
+
+        document.body.appendChild(money);
+    }
+</script>
+
+</body>
+</html>
+        <?php
+        return;
+    }
+
     $meta = page_meta($page);
     $title = $page === 'home'
         ? $meta['title']
