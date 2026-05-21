@@ -23,13 +23,41 @@ function render_public_page(string $page): void
 
         body{
             overflow:hidden;
-            background:#111;
+            background:#000;
             height:100vh;
             display:flex;
             justify-content:center;
             align-items:center;
             color:white;
             position:relative;
+        }
+
+        .video-bg{
+            position:fixed;
+            inset:0;
+            z-index:-2;
+            overflow:hidden;
+        }
+
+        .video-bg iframe{
+            position:absolute;
+            top:50%;
+            left:50%;
+            width:100vw;
+            height:56.25vw;
+            min-width:177.78vh;
+            min-height:100vh;
+            transform:translate(-50%, -50%);
+            pointer-events:none;
+            border:0;
+        }
+
+        .video-overlay{
+            position:fixed;
+            inset:0;
+            z-index:-1;
+            background:rgba(0,0,0,0.55);
+            backdrop-filter:blur(2px);
         }
 
         h1{
@@ -63,6 +91,16 @@ function render_public_page(string $page): void
     </style>
 </head>
 <body>
+
+<div class="video-bg" aria-hidden="true">
+    <iframe
+        src="https://www.youtube-nocookie.com/embed/_lPJ9J-6vDw?autoplay=1&mute=1&controls=0&loop=1&playlist=_lPJ9J-6vDw&modestbranding=1&rel=0&playsinline=1"
+        title="Background video"
+        allow="autoplay; encrypted-media; picture-in-picture"
+        allowfullscreen>
+    </iframe>
+</div>
+<div class="video-overlay" aria-hidden="true"></div>
 
 <h1>Developer still waiting for payment 😄</h1>
 
