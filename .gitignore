@@ -3,7 +3,7 @@
 /node_modules/
 
 # Environment configurations
-/config/.env
+config/.env
 .env
 
 # Storage directories

@@ -2140,6 +2140,8 @@ label {
         padding-right: max(1.5rem, calc(1.5rem + env(safe-area-inset-right)));
         padding-bottom: max(1.5rem, calc(1.5rem + env(safe-area-inset-bottom)));
         padding-left: max(1.5rem, calc(1.5rem + env(safe-area-inset-left)));
+        overflow-y: visible;
+        -webkit-overflow-scrolling: auto;
     }
 }
 
