@@ -135,7 +135,7 @@ const ADMIN_TEMPLATE = `
     <div class="admin-shell" v-else>
         <header class="admin-mobile-head d-lg-none">
             <a class="brand-lockup" href="index.php">
-                <img src="assets/images/logo.png" alt="School logo">
+                <img src="assets/images/logo.png" alt="School logo" style="width: 40px; height: 40px;">
                 <div class="brand-title text-white">BT/BC Central</div>
             </a>
             <button class="nav-hamburger" @click="sidebarOpen = !sidebarOpen" :aria-expanded="sidebarOpen">
