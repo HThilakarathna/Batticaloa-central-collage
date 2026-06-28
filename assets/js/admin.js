@@ -139,9 +139,9 @@ const ADMIN_TEMPLATE = `
                 <div class="brand-title text-white">BT/BC Central</div>
             </a>
             <button class="nav-hamburger" @click="sidebarOpen = !sidebarOpen" :aria-expanded="sidebarOpen">
-                <span :class="{ 'open': sidebarOpen }"></span>
-                <span :class="{ 'open': sidebarOpen }"></span>
-                <span :class="{ 'open': sidebarOpen }"></span>
+                <span :class="{ 'open': sidebarOpen }" style="background-color: white;"></span>
+                <span :class="{ 'open': sidebarOpen }" style="background-color: white;"></span>
+                <span :class="{ 'open': sidebarOpen }" style="background-color: white;"></span>
             </button>
         </header>
 
